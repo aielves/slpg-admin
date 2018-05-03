@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aielves.slpg.dao.SlpgUserRoleDAO">
+    
+    <resultMap id="BaseResultMap" type="com.aielves.slpg.domain.SlpgUserRole">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="userId" jdbcType="BIGINT" property="userId" />
+        <result column="roleId" jdbcType="BIGINT" property="roleId" />
+        <result column="ctime" jdbcType="BIGINT" property="ctime" />
+        <result column="utime" jdbcType="BIGINT" property="utime" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        id, userId, roleId, ctime, utime, state
+    </sql>
+    
+    <insert id="insert" parameterType="com.aielves.slpg.domain.SlpgUserRole">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into slpg_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="roleId != null">
+                roleId,
+            </if>
+            <if test="ctime != null">
+                ctime,
+            </if>
+            <if test="utime != null">
+                utime,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="ctime != null">
+                #{ctime,jdbcType=BIGINT},
+            </if>
+            <if test="utime != null">
+                #{utime,jdbcType=BIGINT},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    
+    <update id="update" parameterType="com.aielves.slpg.domain.SlpgUserRole">
+        update slpg_user_role
+        <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                roleId = #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime,jdbcType=BIGINT},
+            </if>
+            <if test="utime != null">
+                utime = #{utime,jdbcType=BIGINT},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from slpg_user_role
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    
+    <select id="countByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd" resultType="java.lang.Integer">
+        select count(1) 
+        from slpg_user_role
+        <include refid="Global.Where_Clause" />
+    </select>
+    
+    <select id="findByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd" resultMap="BaseResultMap">
+        select 
+        <include refid="Global.Field_Clause" />
+        from slpg_user_role
+        <include refid="Global.Where_Clause" />
+    </select>
+    
+    <delete id="deleteByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd">
+        delete from slpg_user_role
+        <include refid="Global.Where_Clause" />
+    </delete>
+    
+    <update id="updateByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd">
+        update slpg_user_role
+        <set>
+            <if test="updateObj.userId != null">
+                userId = #{updateObj.userId,jdbcType=BIGINT},
+            </if>
+            <if test="updateObj.roleId != null">
+                roleId = #{updateObj.roleId,jdbcType=BIGINT},
+            </if>
+            <if test="updateObj.ctime != null">
+                ctime = #{updateObj.ctime,jdbcType=BIGINT},
+            </if>
+            <if test="updateObj.utime != null">
+                utime = #{updateObj.utime,jdbcType=BIGINT},
+            </if>
+            <if test="updateObj.state != null">
+                state = #{updateObj.state,jdbcType=INTEGER},
+            </if>
+        </set>
+        <include refid="Global.Where_Clause" />
+    </update>
+    
+    <select id="findMapByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd" resultType="java.util.Map">
+        select 
+        <include refid="Global.Field_Clause" />
+        from 
+        <include refid="Global.Where_Clause_Complex" />
+    </select>
+</mapper>
