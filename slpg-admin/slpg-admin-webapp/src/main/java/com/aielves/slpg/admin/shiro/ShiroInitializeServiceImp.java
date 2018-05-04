@@ -6,6 +6,7 @@ import com.soho.spring.shiro.initialize.RuleChain;
 import com.soho.spring.shiro.initialize.ShiroInitializeService;
 import com.soho.spring.utils.WCCUtils;
 import org.apache.shiro.realm.Realm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
@@ -19,6 +20,9 @@ import java.util.Map;
  */
 @Component
 public class ShiroInitializeServiceImp implements ShiroInitializeService {
+
+    @Autowired
+    private ShiroAuthorizingRealm shiroAuthorizingRealm;
 
     @Override
     public InitDefinition initFilterChainDefinition() {
@@ -36,7 +40,7 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     @Override
     public List<Realm> initRealms() {
         List<Realm> realms = new ArrayList<>();
-        realms.add(new ShiroAuthorizingRealm());
+        realms.add(shiroAuthorizingRealm);
         return realms;
     }
 

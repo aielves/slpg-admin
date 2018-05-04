@@ -22,7 +22,7 @@
         <appender-ref ref="DayFile"/>
     </logger>
     <!--打印MyBatis SQL-->
-    <logger name="com.soho" level="DEBUG"/>
+    <logger name="com.aielves" level="DEBUG"/>
     <!--根logger控制-->
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
