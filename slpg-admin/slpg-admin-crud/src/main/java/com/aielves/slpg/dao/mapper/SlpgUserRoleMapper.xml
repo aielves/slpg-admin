@@ -123,6 +123,13 @@
         <include refid="Global.Where_Clause" />
     </update>
     
+    <select id="findFieldByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd" resultType="java.lang.String">
+        select 
+        <include refid="Global.Field_Clause" />
+        from slpg_user_role
+        <include refid="Global.Where_Clause" />
+    </select>
+    
     <select id="findMapByCnd" parameterType="com.soho.mybatis.sqlcode.condition.Cnd" resultType="java.util.Map">
         select 
         <include refid="Global.Field_Clause" />

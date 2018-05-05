@@ -4,7 +4,6 @@ import com.aielves.slpg.admin.shiro.realm.ShiroAuthorizingRealm;
 import com.soho.spring.shiro.initialize.InitDefinition;
 import com.soho.spring.shiro.initialize.RuleChain;
 import com.soho.spring.shiro.initialize.ShiroInitializeService;
-import com.soho.spring.utils.WCCUtils;
 import org.apache.shiro.realm.Realm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,13 +26,17 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     @Override
     public InitDefinition initFilterChainDefinition() {
         InitDefinition definition = new InitDefinition();
-        definition.setLoginUrl("/dog/login");
-        definition.setSuccessUrl("/dog/findOne");
+        definition.setLoginUrl("/user/loginInit");
+        definition.setSuccessUrl("/user/index");
         definition.setUnauthorizedUrl("/403");
         List<RuleChain> ruleChains = new ArrayList<>();
-        ruleChains.add(new RuleChain("/dog/findOne", "kickout,role[user]"));
-        ruleChains.add(new RuleChain("/dog/findAll", "kickout,role[user]"));
-        definition.setRuleChains(WCCUtils.ruleChainComparator(ruleChains));
+        // 无权限校验
+        ruleChains.add(new RuleChain("/static/**", "anon"));
+        ruleChains.add(new RuleChain("/user/loginInit", "anon"));
+        // 踢出会话,角色资源校验
+        ruleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
+        // definition.setRuleChains(WCCUtils.ruleChainComparator(ruleChains));
+        definition.setRuleChains(ruleChains);
         return definition;
     }
 
