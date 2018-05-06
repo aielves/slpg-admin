@@ -1,53 +1,69 @@
 package com.aielves.slpg.admin.controller;
 
-import com.aielves.slpg.admin.aconst.ErrorCode;
+import com.aielves.slpg.admin.service.UserService;
+import com.aielves.slpg.domain.SlpgUser;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping("loginInit")
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/loginInit")
     public Object loginInit() {
-        return new FastView("login").done();
+        return new FastView("/login").done();
     }
 
     @ResponseBody
-    @RequestMapping("login")
-    public Object login(String username, String password) throws BizErrorEx {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        try {
-            SessionUtils.login(token, false);
-            return new FastMap<>().add("result", "登录成功").add("callurl", "/user/index").done();
-        } catch (AuthenticationException e) {
-            throw new BizErrorEx(ErrorCode.LOGIN_ERROR, e.getMessage());
-        } catch (Exception e) {
-            throw new BizErrorEx(ErrorCode.LOGIN_ERROR, "登录系统正繁忙");
-        }
+    @RequestMapping("/login")
+    public Object login(String username, String password, boolean rememberMe) throws BizErrorEx {
+        return userService.login(username, password, rememberMe);
     }
 
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public Object index() {
-        return new FastView("index").add("user", SessionUtils.getUser()).done();
+        return new FastView("/index").add("user", SessionUtils.getUser()).done();
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("/logout")
     public Object logout() {
         SessionUtils.logout();
         return new FastView("redirect:/user/index").done();
     }
 
-    @RequestMapping("me/userinfo")
-    public Object me_userinfo() {
-        return new FastView("me/userinfo").add("user", SessionUtils.getUser()).done();
+    @RequestMapping("/me/myself")
+    public Object me_myself() {
+        return new FastView("/me/myself").add("user", SessionUtils.getUser()).done();
+    }
+
+    @ResponseBody
+    @RequestMapping("/me/myself_edit")
+    public Object me_myself_edit(SlpgUser user) throws BizErrorEx {
+        return userService.myself_edit(user);
+    }
+
+    @ResponseBody
+    @RequestMapping("/file/upload")
+    public Object file_upload(MultipartFile file) {
+        System.out.println(file.getOriginalFilename());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new FastMap<>().add("url", "http://static.cartoonai.com/1.jpg").done();
     }
 
 }

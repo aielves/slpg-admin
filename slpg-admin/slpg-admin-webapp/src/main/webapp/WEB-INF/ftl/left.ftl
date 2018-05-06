@@ -10,7 +10,7 @@
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
             <@usr key="username"/>
           </span>
-            <a href="/user/me/userinfo" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+            <a href="/user/me/myself" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
         </div>
     </div>
     <!-- 菜单 -->
