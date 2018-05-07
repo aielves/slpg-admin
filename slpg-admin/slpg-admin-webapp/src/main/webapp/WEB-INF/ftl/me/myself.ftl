@@ -6,16 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>账号设置</title>
 <#include "../script.ftl"/>
-    <link href="/static/plugin/imgup/css/common.css" type="text/css" rel="stylesheet"/>
-    <link href="/static/plugin/imgup/css/index.css" type="text/css" rel="stylesheet"/>
-    <script src="/static/plugin/imgup/js/imgPlugin.js"></script>
+    <link href="http://static.cartoonai.com/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
+    <script src="http://static.cartoonai.com/plugin/imgUp/js/core.min.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery("#cover").takungaeImgup({
                 upPath: "/user/file/upload",
                 delPath: "/user/file/delete",
                 inputName: "cover",
-                attrData: {"nickname":"test"},
+                attrData: {"nickname": "test"},
+                maxW: 1100,
+                maxH: 10,
                 imageNum: 3,
                 fileSize: 1, // 单位/M
             });
@@ -120,7 +121,8 @@
                                             <div class="z_photo upimg-div clear" id="coverImg"
                                                  style="margin-right: 10px" ;>
                                                 <section class="z_file fl">
-                                                    <img src="/static/plugin/imgup/img/a11.png" class="add-img">
+                                                    <img src="http://static.cartoonai.com/plugin/imgUp/img/a11.png"
+                                                         class="add-img">
                                                     <input type="file" id="cover" class="file" value=""
                                                            accept="image/jpg,image/jpeg,image/png"/>
                                                 </section>

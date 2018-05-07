@@ -63,7 +63,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="/static/assets/img/user04.png" alt="">
+                                            <img src="http://static.cartoonai.com/assets/img/user04.png" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             3小时前
@@ -82,7 +82,7 @@
                                 <li class="tpl-dropdown-menu-messages">
                                     <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
                                         <div class="menu-messages-ico">
-                                            <img src="/static/assets/img/user02.png" alt="">
+                                            <img src="http://static.cartoonai.com/assets/img/user02.png" alt="">
                                         </div>
                                         <div class="menu-messages-time">
                                             5天前

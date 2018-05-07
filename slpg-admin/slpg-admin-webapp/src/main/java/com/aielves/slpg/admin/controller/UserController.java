@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -60,7 +58,7 @@ public class UserController {
     public Object file_upload(SlpgUser user, MultipartFile file) {
         System.out.println(user.getNickname() + "------" + file.getOriginalFilename());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

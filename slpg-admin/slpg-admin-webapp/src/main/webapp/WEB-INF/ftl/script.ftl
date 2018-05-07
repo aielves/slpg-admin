@@ -6,10 +6,10 @@
 <link rel="icon" type="image/png" href="http://static.cartoonai.com/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed" href="http://static.cartoonai.com/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="狮岭皮革平台管理后台"/>
-<script src="/static/assets/js/echarts.min.js"></script>
+<script src="http://static.cartoonai.com/assets/js/echarts.min.js"></script>
 <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
-<link rel="stylesheet" href="/static/assets/css/amazeui.datatables.min.css"/>
-<link rel="stylesheet" href="/static/assets/css/app.css">
+<link rel="stylesheet" href="http://static.cartoonai.com/assets/css/amazeui.datatables.min.css"/>
+<link rel="stylesheet" href="http://static.cartoonai.com/assets/css/app.min.css">
 <script src="http://static.cartoonai.com/assets/js/jquery.min.js"></script>
 <script src="http://static.cartoonai.com/assets/js/jquery.form.min.js"></script>
 <script src="/static/plugin/aielves.js"></script>
