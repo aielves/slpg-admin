@@ -2,19 +2,12 @@
     var delParent;
     $.fn.extend({
         takungaeImgup: function (opt, serverCallBack) {
-            console.log(opt)
-            if (typeof opt != "object") {
-                alert('参数错误!');
-                return;
-            }
             // var $fileInput = $(this);
             // var $fileInputId = $fileInput.attr('id');
-            var imageNum = opt.maxImages;
+            var imageNum = opt.imageNum;
             var defaults = {
                 fileType: ["jpg", "png", "jpeg", "JPG", "PNG", "JPEG"], // 上传文件的类型
-                fileSize: 1024 * 1024 * 10, // 上传文件的大小 10M
-                count: 0
-                // 计数器
+                fileSize: 1024 * 1024 * opt.fileSize, // 单位/M
             };
             // 组装参数;
             if (opt.success) {
@@ -37,11 +30,8 @@
                 // 遍历得到的图片文件
                 var numUp = imgContainer.find(".up-section").length;
                 var totalNum = numUp + fileList.length; // 总的数量
-                console.log("总共图片数量: " + totalNum + "----限制数量: " + imageNum);
-                if (fileList.length > imageNum || totalNum > imageNum) {
-                    alert("上传图片数目不可以超过5个，请重新选择"); // 一次选择上传超过5个
-                    // 或者是已经上传和这次上传的到的总数也不可以超过5个
-                } else if (numUp < imageNum) {
+                // console.log("总共图片数量: " + totalNum + "----限制数量: " + imageNum);
+                if (numUp < imageNum) {
                     fileList = validateUp(fileList, defaults);
                     for (var i = 0; i < fileList.length; i++) {
                         var imgUrl = window.URL.createObjectURL(fileList[i]);
@@ -73,9 +63,7 @@
                 if (numUp >= imageNum) {
                     $(this).parent().hide();
                 }
-                ;
-                //input内容清空
-                $(this).val("");
+                $(this).val(""); //input内容清空
             });
 
             $(".z_photo").delegate(".close-upimg", "click", function (event) {
@@ -83,13 +71,17 @@
                 event.stopPropagation();
                 $(".works-mask").show();
                 delParent = $(this).parent();
-                console.log(delParent.html() + "delegzat=======");
+                // console.log(delParent.html() + "delegzat=======");
             });
 
             $(".wsdel-ok").click(function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 $(".works-mask").hide();
+                var img = delParent.parent().find("input[name='" + opt.inputName + "']");
+                var url = img.attr("value");
+                var sign = img.attr("sign");
+                console.log(url+"----"+sign);
                 var numUp = delParent.siblings(".up-section").length;
                 if (numUp < imageNum + 1) {
                     delParent.parent().find(".z_file").show();
@@ -108,21 +100,19 @@
                     // 获取文件上传的后缀名
                     var newStr = file.name.split("").reverse().join("");
                     if (newStr.split(".")[0] != null) {
-                        var type = newStr.split(".")[0].split("")
-                            .reverse().join("");
-                        console.log(type + "===type===");
-                        if (jQuery.inArray(type, defaults.fileType) > -1) {
-                            // 类型符合，可以上传
-                            if (file.size >= defaults.fileSize) {
-                                alert('文件大小"' + file.name + '"超出10M限制！');
+                        var type = newStr.split(".")[0].split("").reverse().join("");
+                        // console.log("图片类型: " + type + "----图片大小: " + file.size);
+                        if (jQuery.inArray(type, defaults.fileType) > -1) { // 类型符合，可以上传
+                            if (file.size > defaults.fileSize) {
+                                alert('【' + file.name + '】超出【' + opt.fileSize + 'M】限制！');
                             } else {
                                 arrFiles.push(file);
                             }
                         } else {
-                            alert('您上传的"' + file.name + '"不符合上传类型');
+                            alert('只允许上传【JPG|JPEG|PNG】图片格式');
                         }
                     } else {
-                        alert('您上传的"' + file.name + '"无法识别类型');
+                        alert('只允许上传【JPG|JPEG|PNG】图片类型');
                     }
                 }
                 return arrFiles;
@@ -131,33 +121,29 @@
             function uploadImg(opt, file, obj) {
                 // $("#imguploadFinish").val(false);
                 // 验证通过图片异步上传
-                var url = opt.uploadPath;
                 var data = new FormData();
                 data.append("file", file);
+                var attrData = opt.attrData;
+                // console.log(attrData);
+                if (attrData != undefined && attrData != null) {
+                    for (var key in attrData) {
+                        data.append(key, attrData[key]);
+                    }
+                }
                 $.ajax({
                     type: 'POST',
-                    url: url,
+                    url: opt.upPath,
                     data: data,
                     processData: false,
                     contentType: false,
                     dataType: 'json',
                     success: function (json) {
-                        console.log(json);
-                        // obj.remove();
-                        // 上传成功
-                        if (json.code == '000000') {
+                        if (json.code == '000000') { // 上传成功
                             $(".up-section").removeClass("loading");
-                            $(".up-img").removeClass(
-                                "up-opcity");
+                            $(".up-img").removeClass("up-opcity");
                             // $("#imguploadFinish").val(true);
-                            var htmlStr = "<input type='text' style='display:none;' name='"
-                                + opt.inputName
-                                + "' value='"
-                                + json.data.url
-                                + "'>";
+                            var htmlStr = "<input type='text' style='display:none;' name='" + opt.inputName + "' value='" + json.data.url + "' sign='" + json.data.sign + "'>";
                             obj.append(htmlStr);
-                            console.log(obj)
-                            console.log(htmlStr)
                             if (successCallBack) {
                                 successCallBack(json.data);
                             }

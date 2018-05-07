@@ -27,7 +27,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="/static/assets/img/logo.png" alt=""></a>
+                <a href="javascript:;"><img src="http://static.cartoonai.com/assets/img/logo.png" alt=""></a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">

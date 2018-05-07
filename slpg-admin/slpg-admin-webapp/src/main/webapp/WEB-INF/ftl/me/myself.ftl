@@ -4,31 +4,34 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>狮岭皮革平台管理后台 - 账号设置</title>
-    <#include "../script.ftl"/>
+    <title>账号设置</title>
+<#include "../script.ftl"/>
     <link href="/static/plugin/imgup/css/common.css" type="text/css" rel="stylesheet"/>
     <link href="/static/plugin/imgup/css/index.css" type="text/css" rel="stylesheet"/>
     <script src="/static/plugin/imgup/js/imgPlugin.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery("#cover").takungaeImgup({
-                uploadPath: "/user/file/upload",
+                upPath: "/user/file/upload",
+                delPath: "/user/file/delete",
                 inputName: "cover",
-                maxImages: 3,
+                attrData: {"nickname":"test"},
+                imageNum: 3,
+                fileSize: 1, // 单位/M
             });
         });
     </script>
 </head>
 
 <body data-type="widgets">
-<script src="/static/assets/js/theme.js"></script>
+<script src="http://static.cartoonai.com/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
-    <#include "../top.ftl"/>
+<#include "../top.ftl"/>
     <!-- 风格切换 -->
-    <#include "../skiner.ftl"/>
+<#include "../skiner.ftl"/>
     <!-- 侧边导航栏 -->
-    <#include "../left.ftl"/>
+<#include "../left.ftl"/>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
 

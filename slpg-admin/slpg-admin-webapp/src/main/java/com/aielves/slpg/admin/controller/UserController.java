@@ -6,6 +6,7 @@ import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
+import com.soho.spring.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,14 +57,14 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/file/upload")
-    public Object file_upload(MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
+    public Object file_upload(SlpgUser user, MultipartFile file) {
+        System.out.println(user.getNickname() + "------" + file.getOriginalFilename());
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new FastMap<>().add("url", "http://static.cartoonai.com/1.jpg").done();
+        return new FastMap<>().add("url", "http://static.cartoonai.com/1.jpg").add("sign", MD5Utils.encrypt("1")).done();
     }
 
 }
