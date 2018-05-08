@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>账号设置</title>
 <#include "../script.ftl"/>
-    <link href="http://static.cartoonai.com/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
-    <script src="http://static.cartoonai.com/plugin/imgUp/js/core.min.js"></script>
+    <link href="<@OSSDomain />/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
+    <script src="/static/plugin/imgPlugin.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery("#cover").takungaeImgup({
@@ -16,16 +16,16 @@
                 inputName: "cover",
                 attrData: {"nickname": "test"},
                 maxW: 1100,
-                maxH: 10,
                 imageNum: 3,
-                fileSize: 1, // 单位/M
+                maxSizeKb: 500, // 单位/KB
+                fileType: ["jpg", "jpeg", "png"],
             });
         });
     </script>
 </head>
 
 <body data-type="widgets">
-<script src="http://static.cartoonai.com/assets/js/theme.js"></script>
+<script src="<@OSSDomain />/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
 <#include "../top.ftl"/>
@@ -121,7 +121,7 @@
                                             <div class="z_photo upimg-div clear" id="coverImg"
                                                  style="margin-right: 10px" ;>
                                                 <section class="z_file fl">
-                                                    <img src="http://static.cartoonai.com/plugin/imgUp/img/a11.png"
+                                                    <img src="<@OSSDomain />/plugin/imgUp/img/a11.png"
                                                          class="add-img">
                                                     <input type="file" id="cover" class="file" value=""
                                                            accept="image/jpg,image/jpeg,image/png"/>

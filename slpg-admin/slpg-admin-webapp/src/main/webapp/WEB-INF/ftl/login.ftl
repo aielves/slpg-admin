@@ -10,7 +10,7 @@
 </head>
 
 <body data-type="login">
-<script src="http://static.cartoonai.com/assets/js/theme.js"></script>
+<script src="<@OSSDomain />/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 风格切换 -->
     <div class="tpl-skiner">
@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<script src="http://static.cartoonai.com/assets/js/amazeui.min.js"></script>
-<script src="http://static.cartoonai.com/assets/js/app.js"></script>
+<script src="<@OSSDomain />/assets/js/amazeui.min.js"></script>
+<script src="<@OSSDomain />/assets/js/app.js"></script>
 </body>
 </html>

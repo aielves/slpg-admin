@@ -1,12 +1,13 @@
 package com.aielves.slpg.admin.controller;
 
+import com.aielves.slpg.admin.aliyun.AliOssService;
 import com.aielves.slpg.admin.service.UserService;
 import com.aielves.slpg.domain.SlpgUser;
 import com.soho.mybatis.exception.BizErrorEx;
+import com.soho.spring.model.FileData;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
-import com.soho.spring.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AliOssService aliOssService;
 
     @RequestMapping("/loginInit")
     public Object loginInit() {
@@ -55,14 +58,17 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/file/upload")
-    public Object file_upload(SlpgUser user, MultipartFile file) {
-        System.out.println(user.getNickname() + "------" + file.getOriginalFilename());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return new FastMap<>().add("url", "http://static.cartoonai.com/1.jpg").add("sign", MD5Utils.encrypt("1")).done();
+    public Object file_upload(MultipartFile file) throws BizErrorEx {
+        Long userId = SessionUtils.getUserId();
+        FileData fileData = aliOssService.uploadFile(file, 500, 500, userId, true);
+        return new FastMap<>().add("url", fileData.getNewFileUrl()).add("sign", fileData.getNewFileMD5()).done();
+    }
+
+    @ResponseBody
+    @RequestMapping("/file/delete")
+    public Object file_delete(String url, String sign) throws BizErrorEx {
+        Long userId = SessionUtils.getUserId();
+        return aliOssService.deleteFile(userId, url, sign);
     }
 
 }

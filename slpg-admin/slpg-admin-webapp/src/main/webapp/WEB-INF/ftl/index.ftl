@@ -9,7 +9,7 @@
 </head>
 
 <body data-type="index">
-<script src="http://static.cartoonai.com/assets/js/theme.js"></script>
+<script src="<@OSSDomain />/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
 <#include "top.ftl"/>
@@ -150,7 +150,7 @@
                         <div class="achievement-subheading">
                             月度最佳员工
                         </div>
-                        <img class="achievement-image" src="http://static.cartoonai.com/assets/img/user07.png" alt="">
+                        <img class="achievement-image" src="<@OSSDomain />/assets/img/user07.png" alt="">
                         <div class="achievement-description">
                             禁言小张在
                             <strong>30天内</strong> 禁言了
