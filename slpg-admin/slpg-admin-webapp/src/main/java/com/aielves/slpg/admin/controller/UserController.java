@@ -60,7 +60,7 @@ public class UserController {
     @RequestMapping("/file/upload")
     public Object file_upload(MultipartFile file) throws BizErrorEx {
         Long userId = SessionUtils.getUserId();
-        FileData fileData = aliOssService.uploadFile(file, 500, 500, userId, true);
+        FileData fileData = aliOssService.uploadFile(file, 500, 500, userId, false);
         return new FastMap<>().add("url", fileData.getNewFileUrl()).add("sign", fileData.getNewFileMD5()).done();
     }
 

@@ -46,6 +46,7 @@ public class UserServiceImp implements UserService {
             String nickname = user.getNickname();
             Integer sex = user.getSex();
             String email = user.getEmail();
+            String headimg = user.getHeadimg();
             if (StringUtils.isEmpty(nickname) || nickname.length() > 8) {
                 throw new BizErrorEx("昵称不能为空,8个字以内");
             }
@@ -55,6 +56,9 @@ public class UserServiceImp implements UserService {
             if (!StringUtils.isEmpty(email) && !RGXUtils.matches(email, RGX.EMAIL)) {
                 throw new BizErrorEx("邮箱不合法");
             }
+            if (!StringUtils.isEmpty(headimg) && !RGXUtils.matchImgUrl(headimg)) {
+                throw new BizErrorEx("图片不合法");
+            }
             SlpgUser updater = slpgUserDAO.findOneByCnd(new SQLCnd().eq("id", SessionUtils.getUserId()).eq("state", 1));
             if (updater == null) {
                 throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "用户数据不存在");
@@ -62,6 +66,7 @@ public class UserServiceImp implements UserService {
             updater.setNickname(nickname);
             updater.setSex(sex);
             updater.setEmail(email);
+            updater.setHeadimg(headimg);
             updater.setUtime(System.currentTimeMillis());
             slpgUserDAO.update(updater);
             SessionUtils.setUser(updater, updater.getUsername());

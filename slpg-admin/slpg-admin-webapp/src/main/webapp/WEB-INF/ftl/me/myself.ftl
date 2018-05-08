@@ -7,16 +7,16 @@
     <title>账号设置</title>
 <#include "../script.ftl"/>
     <link href="<@OSSDomain />/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
-    <script src="/static/plugin/imgPlugin.js"></script>
+    <script src="<@OSSDomain />/plugin/imgUp/js/core.min.js"></script>
     <script>
         jQuery(document).ready(function () {
-            jQuery("#cover").takungaeImgup({
+            jQuery("#headimg").takungaeImgup({
                 upPath: "/user/file/upload",
                 delPath: "/user/file/delete",
-                inputName: "cover",
+                inputName: "headimg",
                 attrData: {"nickname": "test"},
-                maxW: 1100,
-                imageNum: 3,
+                maxW: 100,
+                imageNum: 1,
                 maxSizeKb: 500, // 单位/KB
                 fileType: ["jpg", "jpeg", "png"],
             });
@@ -116,18 +116,42 @@
                                     <label for="email" class="am-u-sm-12 am-form-label am-text-left">头像 <span
                                             class="tpl-form-line-small-title">Head Image</span></label>
                                     <div class="am-u-sm-12">
+                                        <#if user.headimg??>
                                         <section class=" img-section">
                                             <p class="up-p"><span class="up-span"></span></p>
-                                            <div class="z_photo upimg-div clear" id="coverImg"
-                                                 style="margin-right: 10px" ;>
+                                            <div class="z_photo upimg-div clear" style="margin-right: 10px" ;="">
+                                                <section class="up-section fl">
+                                                    <span class="up-span"></span>
+                                                    <img class="close-upimg"
+                                                         src="<@OSSDomain />/plugin/imgUp/img/a7.png">
+                                                    <img class="up-img" src="${user.headimg!''}">
+                                                    <p class="img-name-p">${user.headimg!''}</p>
+                                                    <input id="taglocation" name="taglocation" value="" type="hidden">
+                                                    <input id="tags" name="tags" value="" type="hidden">
+                                                    <input style="display:none;" name="headimg"
+                                                           value="${user.headimg!''}" sign="1"
+                                                           type="text">
+                                                </section>
+                                                <section class="z_file fl" style="display: none;">
+                                                    <img src="<@OSSDomain />/plugin/imgUp/img/a11.png" class="add-img">
+                                                    <input id="headimg" class="file" value=""
+                                                           accept="image/jpg,image/jpeg,image/png" type="file">
+                                                </section>
+                                            </div>
+                                        </section>
+                                        <#else>
+                                        <section class=" img-section">
+                                            <p class="up-p"><span class="up-span"></span></p>
+                                            <div class="z_photo upimg-div clear" style="margin-right: 10px" ;>
                                                 <section class="z_file fl">
                                                     <img src="<@OSSDomain />/plugin/imgUp/img/a11.png"
                                                          class="add-img">
-                                                    <input type="file" id="cover" class="file" value=""
+                                                    <input type="file" id="headimg" class="file" value=""
                                                            accept="image/jpg,image/jpeg,image/png"/>
                                                 </section>
                                             </div>
                                         </section>
+                                        </#if>
                                         <small style="color: #ff5588">备注: 建议上传一张规格宽高相同的图片(100*100)</small>
                                     </div>
                                     <aside class="mask works-mask">

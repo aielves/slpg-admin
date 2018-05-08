@@ -47,7 +47,7 @@ public class AliOssService {
             throw new BizErrorEx(RetCode.BIZ_ERROR_MESSAGE, "图片签名校验失败");
         }
         OSSClient client = new OSSClient(ossData.getEndpoint(), encryptService.aes_d(ossData.getAppId()), encryptService.aes_d(ossData.getAppKey()));
-        client.deleteObject(ossData.getBucketName(), fileUrl.replaceAll(ossData.getDomain(), ""));
+        client.deleteObject(ossData.getBucketName(), fileUrl.replaceAll(ossData.getDomain() + "/", ""));
         client.shutdown();
         return new FastMap<>().add("result", "删除成功").done();
     }
@@ -57,7 +57,7 @@ public class AliOssService {
         String key = new StringBuffer().append(userId).append("/").append(fileName).toString();
         client.putObject(ossData.getBucketName(), key, new File(filePath));
         client.shutdown();
-        return new StringBuffer(ossData.getDomain()).append(key).toString();
+        return new StringBuffer(ossData.getDomain()).append("/").append(key).toString();
     }
 
 }

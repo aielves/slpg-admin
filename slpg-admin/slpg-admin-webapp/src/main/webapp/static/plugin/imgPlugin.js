@@ -134,14 +134,18 @@
                             }
                         } else {
                             alert(json.msg);
+                            var parent = $(obj).parent();
                             obj.remove();
+                            parent.find("section").show();
                             if (errorCallBack) {
                                 errorCallBack(json.msg);
                             }
                         }
                     },
                     error: function (e) {
+                        var parent = $(obj).parent();
                         obj.remove();
+                        parent.find("section").show();
                         if (errorCallBack) {
                             errorCallBack("上传失败，请重新尝试!");
                         }
