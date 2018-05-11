@@ -79,7 +79,7 @@ var delImgSign;
 
 function validFile(files, options, defaults) {
     var arrFiles = [];
-    for (var i = 0, file; file = files[i]; i++) {
+    for (var i = 0, file = null; file = files[i]; i++) {
         var newStr = file.name.split("").reverse().join("");
         if (newStr.split(".")[0] != null) {
             var type = newStr.split(".")[0].split("").reverse().join("");

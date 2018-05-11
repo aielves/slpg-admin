@@ -8,7 +8,6 @@
 <#include "../script.ftl"/>
     <link href="<@OSSDomain />/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
     <script src="<@OSSDomain />/plugin/imgUp/js/core.min.js"></script>
-<#--<script src="/static/plugin/core.min.js"></script>-->
     <script>
         jQuery(document).ready(function () {
             jQuery("#headimg").takungaeImgup({
