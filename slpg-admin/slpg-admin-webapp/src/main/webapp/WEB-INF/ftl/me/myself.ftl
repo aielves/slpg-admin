@@ -8,6 +8,7 @@
 <#include "../script.ftl"/>
     <link href="<@OSSDomain />/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
     <script src="<@OSSDomain />/plugin/imgUp/js/core.min.js"></script>
+<#--<script src="/static/plugin/core.min.js"></script>-->
     <script>
         jQuery(document).ready(function () {
             jQuery("#headimg").takungaeImgup({
@@ -15,8 +16,16 @@
                 delPath: "/user/file/delete",
                 inputName: "headimg",
                 attrData: {"nickname": "test"},
-                maxW: 100,
-                imageNum: 1,
+                imageNum: 2,
+                maxSizeKb: 500, // 单位/KB
+                fileType: ["jpg", "jpeg", "png"],
+            });
+            jQuery("#photos").takungaeImgup({
+                upPath: "/user/file/upload",
+                delPath: "/user/file/delete",
+                inputName: "headimg",
+                attrData: {"nickname": "test"},
+                imageNum: 3,
                 maxSizeKb: 500, // 单位/KB
                 fileType: ["jpg", "jpeg", "png"],
             });
@@ -112,24 +121,34 @@
                                     </div>
                                 </div>
 
+                                <aside class="mask works-mask">
+                                    <div class="mask-content">
+                                        <p class="del-p"></p>
+                                        <p class="check-p"><span class="del-com wsdel-ok"
+                                                                 style="cursor: pointer">确定</span><span
+                                                class="wsdel-no" style="cursor: pointer">取消</span></p>
+                                    </div>
+                                </aside>
+
                                 <div class="am-form-group">
-                                    <label for="email" class="am-u-sm-12 am-form-label am-text-left">头像 <span
+                                    <label for="headimg" class="am-u-sm-12 am-form-label am-text-left">头像 <span
                                             class="tpl-form-line-small-title">Head Image</span></label>
                                     <div class="am-u-sm-12">
-                                        <#if user.headimg??>
+                                    <#if user.headimg??>
                                         <section class=" img-section">
                                             <p class="up-p"><span class="up-span"></span></p>
                                             <div class="z_photo upimg-div clear" style="margin-right: 10px" ;="">
                                                 <section class="up-section fl">
                                                     <span class="up-span"></span>
-                                                    <img class="close-upimg"
+                                                    <img class="close-upimg" style="cursor: pointer"
+                                                         onclick="deleteFile('${user.headimg!''}');"
                                                          src="<@OSSDomain />/plugin/imgUp/img/a7.png">
                                                     <img class="up-img" src="${user.headimg!''}">
                                                     <p class="img-name-p">${user.headimg!''}</p>
                                                     <input id="taglocation" name="taglocation" value="" type="hidden">
                                                     <input id="tags" name="tags" value="" type="hidden">
                                                     <input style="display:none;" name="headimg"
-                                                           value="${user.headimg!''}" sign="1"
+                                                           value="${user.headimg!''}" sign="${user.headimg!''}"
                                                            type="text">
                                                 </section>
                                                 <section class="z_file fl" style="display: none;">
@@ -139,7 +158,7 @@
                                                 </section>
                                             </div>
                                         </section>
-                                        <#else>
+                                    <#else>
                                         <section class=" img-section">
                                             <p class="up-p"><span class="up-span"></span></p>
                                             <div class="z_photo upimg-div clear" style="margin-right: 10px" ;>
@@ -151,16 +170,28 @@
                                                 </section>
                                             </div>
                                         </section>
-                                        </#if>
+                                    </#if>
                                         <small style="color: #ff5588">备注: 建议上传一张规格宽高相同的图片(100*100)</small>
                                     </div>
-                                    <aside class="mask works-mask">
-                                        <div class="mask-content">
-                                            <p class="del-p">您确定要删除图片吗？</p>
-                                            <p class="check-p"><span class="del-com wsdel-ok">确定</span><span
-                                                    class="wsdel-no">取消</span></p>
-                                        </div>
-                                    </aside>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="photos" class="am-u-sm-12 am-form-label am-text-left">相册 <span
+                                            class="tpl-form-line-small-title">Photo Album</span></label>
+                                    <div class="am-u-sm-12">
+                                        <section class=" img-section">
+                                            <p class="up-p"><span class="up-span"></span></p>
+                                            <div class="z_photo upimg-div clear" style="margin-right: 10px" ;>
+                                                <section class="z_file fl">
+                                                    <img src="<@OSSDomain />/plugin/imgUp/img/a11.png"
+                                                         class="add-img">
+                                                    <input type="file" id="photos" class="file" value=""
+                                                           accept="image/jpg,image/jpeg,image/png"/>
+                                                </section>
+                                            </div>
+                                        </section>
+                                        <small style="color: #ff5588">备注: 建议上传一张规格宽高相同的图片(100*100)</small>
+                                    </div>
                                 </div>
 
                                 <div class="am-form-group">
