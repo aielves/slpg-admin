@@ -32,8 +32,8 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         List<RuleChain> ruleChains = new ArrayList<>();
         // 无权限校验
         ruleChains.add(new RuleChain("/static/**", "anon"));
-        ruleChains.add(new RuleChain("/user/loginInit", "anon"));
-        ruleChains.add(new RuleChain("/user/login", "anon"));
+        ruleChains.add(new RuleChain("/user/login*", "anon"));
+        ruleChains.add(new RuleChain("/user/signup*", "anon"));
         // 踢出会话,角色资源校验
         ruleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
         ruleChains.add(new RuleChain("/**", "kickout,authc"));

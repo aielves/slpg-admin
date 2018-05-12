@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>狮岭皮革平台管理后台 - 主页</title>
+    <title>主页</title>
     <#include "script.ftl"/>
 </head>
 

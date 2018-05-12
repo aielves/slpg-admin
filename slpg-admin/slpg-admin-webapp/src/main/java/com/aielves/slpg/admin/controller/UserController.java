@@ -28,6 +28,11 @@ public class UserController {
         return new FastView("/login").done();
     }
 
+    @RequestMapping("/signupInit")
+    public Object signupInit() {
+        return new FastView("/signup").done();
+    }
+
     @ResponseBody
     @RequestMapping("/login")
     public Object login(String username, String password, boolean rememberMe) throws BizErrorEx {

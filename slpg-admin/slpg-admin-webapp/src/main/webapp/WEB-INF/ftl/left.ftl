@@ -15,7 +15,7 @@
     </div>
     <!-- 菜单 -->
     <ul class="sidebar-nav">
-        <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+        <li class="sidebar-nav-heading">基础模块 <span class="sidebar-nav-heading-info"> Base Module</span></li>
         <li class="sidebar-nav-link">
             <a href="index.html" class="active">
                 <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
@@ -43,7 +43,7 @@
 
             </a>
         </li>
-        <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
+        <li class="sidebar-nav-heading">系统模块<span class="sidebar-nav-heading-info"> System Module</span></li>
         <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title">
                 <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表

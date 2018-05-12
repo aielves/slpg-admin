@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>登录</title>
-    <#include "script.ftl"/>
+    <title>注册</title>
+<#include "script.ftl"/>
 
 </head>
 
@@ -28,33 +28,41 @@
     </div>
     <div class="tpl-login">
         <div class="tpl-login-content">
-            <div class="tpl-login-logo">
-            </div>
-            <form id="form" class="am-form tpl-form-line-form">
+            <div class="tpl-login-title">注册用户</div>
+            <span class="tpl-login-content-info">
+                  创建一个新的用户
+              </span>
+
+            <form class="am-form tpl-form-line-form">
                 <div class="am-form-group">
-                    <input type="text" class="tpl-form-input" name="username" maxlength="18"
-                           placeholder="请输入账号">
+                    <input type="text" class="tpl-form-input" id="user-name" placeholder="邮箱">
                 </div>
+
                 <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" name="password" maxlength="18"
-                           placeholder="请输入密码">
+                    <input type="text" class="tpl-form-input" id="user-name" placeholder="用户名">
                 </div>
+
+                <div class="am-form-group">
+                    <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
+                </div>
+
+                <div class="am-form-group">
+                    <input type="password" class="tpl-form-input" id="user-name" placeholder="再次输入密码">
+                </div>
+
                 <div class="am-form-group tpl-login-remember-me">
                     <input id="remember-me" type="checkbox">
                     <label for="remember-me">
-                        <span>记住密码</span>
-                    </label>
-                    <label style="margin-left: 90px;">
-                        <a href="/user/signupInit">注册账号</a> | <a href="#">忘记密码?</a>
+                        我已阅读并同意 <a href="javascript:;">《用户注册协议》</a>
                     </label>
                 </div>
-                <div class="am-form-group tpl-login-remember-me">
 
-                </div>
                 <div class="am-form-group">
-                    <button type="button" onclick="submitByAjax('#form', '/user/login', false)"
+
+                    <button type="button"
                             class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交
                     </button>
+
                 </div>
             </form>
         </div>
@@ -62,5 +70,7 @@
 </div>
 <script src="<@OSSDomain />/assets/js/amazeui.min.js"></script>
 <script src="<@OSSDomain />/assets/js/app.js"></script>
+
 </body>
+
 </html>

@@ -71,6 +71,7 @@
                         </div>
                         <div class="widget-body am-fr">
                             <form id="form" class="am-form tpl-form-border-form">
+                            <@formToken/>
                                 <div class="am-form-group">
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">账号 <span
                                             class="tpl-form-line-small-title">Account</span></label>
