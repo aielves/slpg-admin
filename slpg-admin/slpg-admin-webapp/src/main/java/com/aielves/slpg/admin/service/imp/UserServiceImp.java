@@ -70,7 +70,7 @@ public class UserServiceImp implements UserService {
             updater.setUtime(System.currentTimeMillis());
             slpgUserDAO.update(updater);
             SessionUtils.setUser(updater, updater.getUsername());
-            return new FastMap<String>().add("result", "修改成功").add("callurl", "/user/index").done();
+            return new FastMap<String>().add("result", "修改成功").add("callurl", "/user/me/myself").done();
         } catch (Exception e) {
             return BizErrorEx.transform(e);
         }

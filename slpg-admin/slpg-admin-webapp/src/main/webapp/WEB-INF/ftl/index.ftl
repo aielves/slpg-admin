@@ -19,6 +19,7 @@
 <#include "left.ftl"/>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
+        <#include "modal.ftl"/>
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">

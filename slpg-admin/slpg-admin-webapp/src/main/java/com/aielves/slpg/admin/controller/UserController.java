@@ -5,6 +5,7 @@ import com.aielves.slpg.admin.service.UserService;
 import com.aielves.slpg.domain.SlpgUser;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.model.FileData;
+import com.soho.spring.mvc.annotation.FormToken;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
@@ -55,6 +56,7 @@ public class UserController {
         return new FastView("/me/myself").add("user", SessionUtils.getUser()).done();
     }
 
+    @FormToken
     @ResponseBody
     @RequestMapping("/me/myself_edit")
     public Object me_myself_edit(SlpgUser user) throws BizErrorEx {

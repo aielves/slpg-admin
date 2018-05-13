@@ -1,4 +1,5 @@
 var isRequest = false;
+
 function submitByAjax(formId, formUrl, showSuccess) {
     jQuery(formId).ajaxSubmit({ // ajax方式提交表单
         url: formUrl,
@@ -35,6 +36,25 @@ function submitByAjax(formId, formUrl, showSuccess) {
     });
 }
 
+// 弹幕操作显示
+jQuery.showModal = function (options) {
+    var container = jQuery(".works-mask");
+    container.find(".del-p").text(options.title);
+    container.find(".wsdel-ok").on("click", function (obj) {
+        if (options.ok != undefined) {
+            options.ok(obj);
+        }
+        container.hide();
+    });
+    container.find(".wsdel-no").on("click", function (obj) {
+        if (options.no != undefined) {
+            options.no(obj);
+        }
+        container.hide();
+    });
+    container.show();
+}
+
 function validNull(obj) {
     if (obj == undefined || obj == null || obj == '') {
         return true;
@@ -43,9 +63,9 @@ function validNull(obj) {
 }
 
 function logout() {
-    if(confirm("确定要退出吗?")){
-        top.location.href = '/user/logout';
-        return true;
-    }
-    return false;
+    jQuery.showModal({
+        title: "确定要退出吗?", ok: function () {
+            top.location.href = '/user/logout';
+        }
+    });
 }

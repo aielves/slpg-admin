@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>账号设置</title>
 <#include "../script.ftl"/>
-    <link href="<@OSSDomain />/plugin/imgUp/css/core.min.css" type="text/css" rel="stylesheet"/>
-    <script src="<@OSSDomain />/plugin/imgUp/js/core.min.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery("#headimg").takungaeImgup({
@@ -43,7 +41,7 @@
 <#include "../left.ftl"/>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-
+        <#include "../modal.ftl">
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -58,7 +56,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row-content am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
@@ -120,15 +117,6 @@
                                         <small style="color: #ff5588">请输入邮箱地址，例：123456@qq.com。</small>
                                     </div>
                                 </div>
-
-                                <aside class="mask works-mask">
-                                    <div class="mask-content">
-                                        <p class="del-p"></p>
-                                        <p class="check-p"><span class="del-com wsdel-ok"
-                                                                 style="cursor: pointer">确定</span><span
-                                                class="wsdel-no" style="cursor: pointer">取消</span></p>
-                                    </div>
-                                </aside>
 
                                 <div class="am-form-group">
                                     <label for="headimg" class="am-u-sm-12 am-form-label am-text-left">头像 <span
