@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>账号设置</title>
+    <title>授权管理 - 角色列表</title>
 <#include "../script.ftl"/>
 </head>
 
@@ -24,7 +24,7 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">文章列表</div>
+                            <div class="widget-title  am-cf">角色列表</div>
 
 
                         </div>

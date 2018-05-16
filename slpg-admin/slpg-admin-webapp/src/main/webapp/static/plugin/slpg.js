@@ -76,3 +76,27 @@ function logout() {
         }
     });
 }
+
+function menuClick(cmenu) {
+    document.cookie = "cmenu=" + cmenu + "; path=/";
+    $(".sidebar-nav-sub").hide();
+    $(cmenu).show();
+    console.log(cmenu);
+}
+
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return "";
+}
+
+$(function () {
+    console.log(getCookie("cmenu"))
+    $(".sidebar-nav-sub").hide();
+    var cmenu = getCookie("cmenu");
+    if (cmenu != "") {
+        $(cmenu).show();
+    }
+});

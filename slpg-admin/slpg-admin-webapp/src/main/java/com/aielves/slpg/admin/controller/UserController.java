@@ -78,4 +78,11 @@ public class UserController {
         return aliOssService.deleteFile(userId, url, sign);
     }
 
+    @ResponseBody
+    @RequestMapping("/menu/click")
+    public Object menu_click(String url) throws BizErrorEx {
+        SessionUtils.setAttribute("menu", url);
+        return new FastMap<>().done();
+    }
+
 }
