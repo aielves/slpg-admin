@@ -7,7 +7,7 @@ function submitByAjax(formId, formUrl, showSuccess) {
         dataType: 'json',
         beforeSubmit: function () {
             if (isRequest == true) {
-                alert('请求正在处理,请耐心等候...');
+                jQuery.showModal({title: "请求正在处理,请耐心等候..."});
                 return false;
             }
             isRequest = true;
@@ -18,16 +18,23 @@ function submitByAjax(formId, formUrl, showSuccess) {
                 var callurl = json.data.callurl;
                 if (!validNull(result)) {
                     if (!validNull(showSuccess) && showSuccess == true) {
-                        alert(result);
+                        jQuery.showModal({
+                            title: result, ok: function () {
+                                if (!validNull(callurl)) {
+                                    top.location.href = callurl;
+                                }
+                            }
+                        });
+                    } else {
+                        if (!validNull(callurl)) {
+                            top.location.href = callurl;
+                        }
                     }
                 } else {
-                    alert(json.msg);
-                }
-                if (!validNull(callurl)) {
-                    top.location.href = callurl;
+                    jQuery.showModal({title: json.msg});
                 }
             } else {
-                alert(json.msg);
+                jQuery.showModal({title: json.msg});
             }
             isRequest = false;
         },

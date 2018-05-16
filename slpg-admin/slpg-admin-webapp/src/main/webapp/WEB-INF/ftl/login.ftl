@@ -5,13 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>登录</title>
-    <#include "script.ftl"/>
+<#include "script.ftl"/>
 
 </head>
 
 <body data-type="login">
 <script src="<@OSSDomain />/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
+<#include "modal.ftl">
     <!-- 风格切换 -->
     <div class="tpl-skiner">
         <div class="tpl-skiner-toggle am-icon-cog">

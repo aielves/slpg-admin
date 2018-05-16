@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Order(5)
 public class UserSessionAspectImp extends UserSessionAspect {
 
-    @Around("execution(public * com.soho.*.service..*.*(..))")
+    @Around("execution(public * com.aielves.slpg.*.service..*.*(..))")
     @Override
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
         return super.invoke(joinPoint);

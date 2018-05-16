@@ -14,4 +14,4 @@
 <script src="<@OSSDomain />/assets/js/jquery.min.js"></script>
 <script src="<@OSSDomain />/assets/js/jquery.form.min.js"></script>
 <script src="<@OSSDomain />/plugin/imgUp/js/core.min.js"></script>
-<script src="/static/plugin/aielves.js"></script>
+<script src="/static/plugin/slpg.js"></script>

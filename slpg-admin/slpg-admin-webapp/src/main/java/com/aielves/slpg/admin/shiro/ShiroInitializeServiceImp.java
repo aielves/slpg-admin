@@ -29,16 +29,16 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         definition.setLoginUrl("/user/loginInit");
         definition.setSuccessUrl("/user/index");
         definition.setUnauthorizedUrl("/403");
-        List<RuleChain> ruleChains = new ArrayList<>();
-        // 无权限校验
-        ruleChains.add(new RuleChain("/static/**", "anon"));
-        ruleChains.add(new RuleChain("/user/login*", "anon"));
-        ruleChains.add(new RuleChain("/user/signup*", "anon"));
-        // 踢出会话,角色资源校验
-        ruleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
-        ruleChains.add(new RuleChain("/**", "kickout,authc"));
+        List<RuleChain> anonRuleChains = new ArrayList<>();  // 无权限校验
+        anonRuleChains.add(new RuleChain("/static/**", "anon"));
+        anonRuleChains.add(new RuleChain("/user/login*", "anon"));
+        anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
+        List<RuleChain> roleRuleChains = new ArrayList<>(); // 有权限校验
+        roleRuleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
+        roleRuleChains.add(new RuleChain("/**", "kickout,authc"));
         // definition.setRuleChains(WCCUtils.ruleChainComparator(ruleChains));
-        definition.setRuleChains(ruleChains);
+        definition.setAnonRuleChains(anonRuleChains);
+        definition.setRoleRuleChains(roleRuleChains);
         return definition;
     }
 
@@ -52,6 +52,11 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     @Override
     public Map<String, Filter> initFilters() {
         return new LinkedHashMap<>();
+    }
+
+    @Override
+    public boolean isHttpsCookieSecure() {
+        return false;
     }
 
 }

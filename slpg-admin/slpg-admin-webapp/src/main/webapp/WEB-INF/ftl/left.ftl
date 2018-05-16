@@ -46,19 +46,23 @@
         <li class="sidebar-nav-heading">系统模块<span class="sidebar-nav-heading-info"> System Module</span></li>
         <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title">
-                <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
+                <i class="am-icon-key sidebar-nav-link-logo"></i> 授权管理
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
             <ul class="sidebar-nav sidebar-nav-sub">
                 <li class="sidebar-nav-link">
                     <a href="table-list.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 账号列表
                     </a>
                 </li>
-
+                <li class="sidebar-nav-link">
+                    <a href="/role/list">
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
+                    </a>
+                </li>
                 <li class="sidebar-nav-link">
                     <a href="table-list-img.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 资源列表
                     </a>
                 </li>
             </ul>
