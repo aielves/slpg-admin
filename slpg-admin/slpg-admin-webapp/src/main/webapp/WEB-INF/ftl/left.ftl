@@ -45,11 +45,11 @@
         </li>
         <li class="sidebar-nav-heading">系统模块<span class="sidebar-nav-heading-info"> System Module</span></li>
         <li class="sidebar-nav-link">
-            <a href="javascript:;" class="sidebar-nav-sub-title" onclick="menuClick('#rbac')">
+            <a href="javascript:;" class="sidebar-nav-sub-title" id="rbac">
                 <i class="am-icon-key sidebar-nav-link-logo"></i> 授权管理
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
-            <ul class="sidebar-nav sidebar-nav-sub" id="rbac">
+            <ul class="sidebar-nav sidebar-nav-sub">
                 <li class="sidebar-nav-link">
                     <a href="table-list.html">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 账号列表
@@ -86,7 +86,7 @@
 
         <li class="sidebar-nav-heading">系统模块<span class="sidebar-nav-heading-info"> System Module</span></li>
         <li class="sidebar-nav-link">
-            <a href="javascript:;" class="sidebar-nav-sub-title" onclick="menuClick('#rbac2')">
+            <a href="javascript:;" class="sidebar-nav-sub-title" id="rbac2">
                 <i class="am-icon-key sidebar-nav-link-logo"></i> 授权管理
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
@@ -97,7 +97,7 @@
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="/role/list">
+                    <a href="/role/list" class="sub-active">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
                     </a>
                 </li>
