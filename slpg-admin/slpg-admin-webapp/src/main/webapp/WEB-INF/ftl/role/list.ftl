@@ -170,7 +170,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="am-u-lg-12 am-cf">
+                            <@page pageNo="10" pageNumber="20" />
+                            <#--<div class="am-u-lg-12 am-cf">
                                 <div class="am-fr">
                                     <ul class="am-pagination tpl-pagination">
                                         <li class="am-disabled"><a href="#">«</a></li>
@@ -187,7 +188,7 @@
                                         <li><a href="#">»</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
