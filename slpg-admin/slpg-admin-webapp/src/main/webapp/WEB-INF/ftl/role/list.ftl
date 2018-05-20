@@ -42,6 +42,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <form id="form" method="post">
                             <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                                 <div class="am-form-group tpl-table-list-select">
                                     <select data-am-selected="{btnSize: 'sm'}">
@@ -59,10 +60,11 @@
                                 <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                     <input type="text" class="am-form-field ">
                                     <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
+                                        <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                    </span>
                                 </div>
                             </div>
+                            </form>
 
                             <div class="am-u-sm-12">
                                 <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
@@ -170,25 +172,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <@page pageNo="10" pageNumber="20" />
-                            <#--<div class="am-u-lg-12 am-cf">
-                                <div class="am-fr">
-                                    <ul class="am-pagination tpl-pagination">
-                                        <li class="am-disabled"><a href="#">«</a></li>
-                                        <li class="am-active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
-                                        <li><a href="#">9</a></li>
-                                        <li><a href="#">10</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                </div>
-                            </div>-->
+                            <@page pageFun="paging" pageNo="10" pageNumber="20" />
                         </div>
                     </div>
                 </div>
@@ -198,5 +182,10 @@
 </div>
 </div>
 <#include "../script2.ftl"/>
+<script>
+    function paging(pageNo) {
+        alert(pageNo);
+    }
+</script>
 </body>
 </html>
