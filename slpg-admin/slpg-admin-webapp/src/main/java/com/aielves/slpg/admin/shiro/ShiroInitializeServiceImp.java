@@ -33,6 +33,7 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         anonRuleChains.add(new RuleChain("/static/**", "anon"));
         anonRuleChains.add(new RuleChain("/user/login*", "anon"));
         anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
+        anonRuleChains.add(new RuleChain("/security/ggk/*", "anon"));
         List<RuleChain> roleRuleChains = new ArrayList<>(); // 有权限校验
         roleRuleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
         roleRuleChains.add(new RuleChain("/**", "kickout,authc"));
