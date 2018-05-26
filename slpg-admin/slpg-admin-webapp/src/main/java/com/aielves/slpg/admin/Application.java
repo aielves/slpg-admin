@@ -18,7 +18,8 @@ public class Application extends DefaultServletInitializer {
 
     @Bean
     public PropertyPlaceholderConfigurer initPropertyPlaceholderConfigurer() {
-        return super.initPropertyPlaceholderConfigurer(); // 本地启动方式
+        String[] decodeKeys = new String[]{"spring.datasource.username", "spring.datasource.password", "oss.appId", "oss.appKey", "ggk.appId", "ggk.appKey",};
+        return super.initPropertyPlaceholderConfigurer(null, decodeKeys); // 本地启动方式
     }
 
     @Bean

@@ -1,12 +1,15 @@
 package com.aielves.slpg.admin.shiro;
 
 import com.aielves.slpg.admin.shiro.realm.ShiroAuthorizingRealm;
+import com.soho.aliyun.ggk.interceptor.KillRobotInterceptor;
+import com.soho.spring.mvc.interceptor.FormTokenInterceptor;
 import com.soho.spring.shiro.initialize.InitDefinition;
 import com.soho.spring.shiro.initialize.RuleChain;
 import com.soho.spring.shiro.initialize.ShiroInitializeService;
 import org.apache.shiro.realm.Realm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.Filter;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         anonRuleChains.add(new RuleChain("/static/**", "anon"));
         anonRuleChains.add(new RuleChain("/user/login*", "anon"));
         anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
-        anonRuleChains.add(new RuleChain("/security/ggk/*", "anon"));
+        anonRuleChains.add(new RuleChain("/ggk/*", "anon"));
         List<RuleChain> roleRuleChains = new ArrayList<>(); // 有权限校验
         roleRuleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
         roleRuleChains.add(new RuleChain("/**", "kickout,authc"));
@@ -58,6 +61,14 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     @Override
     public boolean isHttpsCookieSecure() {
         return false;
+    }
+
+    @Override
+    public List<HandlerInterceptor> initInterceptor() {
+        List<HandlerInterceptor> interceptors = new ArrayList<>();
+        interceptors.add(new KillRobotInterceptor());
+        interceptors.add(new FormTokenInterceptor());
+        return interceptors;
     }
 
 }

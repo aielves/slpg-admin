@@ -6,12 +6,14 @@ import com.aielves.slpg.domain.SlpgUser;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.model.FileData;
 import com.soho.spring.mvc.annotation.FormToken;
+import com.soho.spring.mvc.annotation.KillRobot;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +26,7 @@ public class UserController {
     @Autowired
     private AliOssService aliOssService;
 
+    @KillRobot(reset = true)
     @RequestMapping("/loginInit")
     public Object loginInit() {
         return new FastView("/login").done();
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Object login(String username, String password, boolean rememberMe) throws BizErrorEx {
         return userService.login(username, password, rememberMe);
     }

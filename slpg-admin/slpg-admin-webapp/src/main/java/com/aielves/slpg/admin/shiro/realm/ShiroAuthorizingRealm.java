@@ -47,7 +47,7 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        String password = String.valueOf(token.getPassword());
+        String password = String.valueOf(token.getPassword() == null ? "" : token.getPassword());
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             throw new AuthenticationException("账号/密码不能为空");
         }

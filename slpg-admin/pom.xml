@@ -14,7 +14,7 @@
     <properties>
         <maven.local.server>https://www.cartoonai.com</maven.local.server>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <soho.version>3.0.3</soho.version>
+        <soho.version>3.0.5</soho.version>
     </properties>
 
     <!-- Spring Boot 启动父依赖 -->
@@ -28,6 +28,11 @@
         <dependency>
             <groupId>com.soho</groupId>
             <artifactId>soho-spring</artifactId>
+            <version>${soho.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.soho</groupId>
+            <artifactId>soho-aliyun</artifactId>
             <version>${soho.version}</version>
         </dependency>
     </dependencies>
