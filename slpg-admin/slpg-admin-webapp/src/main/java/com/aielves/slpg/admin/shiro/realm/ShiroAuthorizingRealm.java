@@ -46,11 +46,11 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        String username = token.getUsername();
-        String password = String.valueOf(token.getPassword() == null ? "" : token.getPassword());
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(token.getUsername()) || StringUtils.isEmpty(token.getPassword())) {
             throw new AuthenticationException("账号/密码不能为空");
         }
+        String username = token.getUsername();
+        String password = new String(token.getPassword());
         if (!RGXUtils.matches(username, RGX.ACCOUNT) || !RGXUtils.matches(password, RGX.PASSWORD)) {
             throw new AuthenticationException("账号/密码错误");
         }

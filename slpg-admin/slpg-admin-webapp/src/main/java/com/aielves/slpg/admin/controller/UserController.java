@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private AliOssService aliOssService;
 
-    @KillRobot(reset = true)
+    @KillRobot
     @RequestMapping("/loginInit")
     public Object loginInit() {
         return new FastView("/login").done();

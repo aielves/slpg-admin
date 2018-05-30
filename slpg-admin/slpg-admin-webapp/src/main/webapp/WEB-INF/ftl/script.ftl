@@ -10,7 +10,7 @@
 <script src="<@OSSDomain />/assets/js/echarts.min.js"></script>
 <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
 <link rel="stylesheet" href="<@OSSDomain />/assets/css/amazeui.datatables.min.css"/>
-<link rel="stylesheet" href="<@OSSDomain />/assets/css/app.min.css">
+<link rel="stylesheet" href="/static/assets/css/app.css">
 <link rel="stylesheet" href="<@OSSDomain />/plugin/imgUp/css/core.min.css"/>
 <script src="<@OSSDomain />/assets/js/jquery.min.js"></script>
 <script src="<@OSSDomain />/assets/js/jquery.form.min.js"></script>
