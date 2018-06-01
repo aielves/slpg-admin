@@ -10,6 +10,7 @@
 
 <body data-type="index">
 <script src="<@OSSDomain />/assets/js/theme.js"></script>
+<#include "modal.ftl"/>
 <div class="am-g tpl-g">
     <!-- 头部 -->
 <#include "top.ftl"/>
@@ -19,7 +20,6 @@
 <#include "left.ftl"/>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <#include "modal.ftl"/>
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">

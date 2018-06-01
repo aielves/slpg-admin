@@ -10,6 +10,7 @@
 
 <body data-type="widgets">
 <script src="<@OSSDomain />/assets/js/theme.js"></script>
+<#include "../modal.ftl"/>
 <div class="am-g tpl-g">
     <!-- 头部 -->
 <#include "../top.ftl"/>
