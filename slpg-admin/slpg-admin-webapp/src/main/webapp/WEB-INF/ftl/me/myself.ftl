@@ -32,6 +32,7 @@
 
 <body data-type="widgets">
 <script src="<@OSSDomain />/assets/js/theme.js"></script>
+<#include "../modal.ftl"/>
 <div class="am-g tpl-g">
     <!-- 头部 -->
 <#include "../top.ftl"/>
@@ -41,7 +42,6 @@
 <#include "../left.ftl"/>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
-        <#include "../modal.ftl">
         <div class="container-fluid am-cf">
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -101,7 +101,7 @@
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">性别 <span
                                             class="tpl-form-line-small-title">Sex</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select id="sex" name="sex" data-am-selected="{searchBox: 1}"
+                                        <select id="sex" name="sex" data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
                                             <option value="1">-男</option>
                                             <option value="2">-女</option>

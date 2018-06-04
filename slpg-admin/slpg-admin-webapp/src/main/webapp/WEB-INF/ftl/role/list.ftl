@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>授权管理 - 角色列表</title>
+    <title>授权管理 -> 角色列表</title>
 <#include "../script.ftl"/>
 </head>
 
@@ -27,7 +27,6 @@
                         <div class="widget-head am-cf">
                             <div class="widget-title  am-cf">角色列表</div>
 
-
                         </div>
                         <div class="widget-body  am-fr">
 
@@ -35,8 +34,8 @@
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-success" onclick="location.href='/role/find'"><span class="am-icon-plus"></span> 添加</button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 修改</button>
                                             <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
                                             <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                         </div>

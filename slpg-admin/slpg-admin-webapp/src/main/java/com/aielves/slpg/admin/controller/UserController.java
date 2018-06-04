@@ -6,7 +6,6 @@ import com.aielves.slpg.domain.SlpgUser;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.model.FileData;
 import com.soho.spring.mvc.annotation.FormToken;
-import com.soho.spring.mvc.annotation.KillRobot;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.mvc.model.FastView;
 import com.soho.spring.shiro.utils.SessionUtils;
@@ -26,7 +25,7 @@ public class UserController {
     @Autowired
     private AliOssService aliOssService;
 
-    @KillRobot
+    // @KillRobot
     @RequestMapping("/loginInit")
     public Object loginInit() {
         return new FastView("/login").done();

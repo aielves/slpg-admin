@@ -61,7 +61,7 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
                 throw new AuthenticationException("账号/密码错误");
             }
             validState(user.getState());
-            SessionUtils.setUser(user, username);
+            SessionUtils.doCreateNewSession(user, username);
             SessionUtils.setUserRoles(hasRoleByUser(user.getId()));
             return new SimpleAuthenticationInfo(token.getUsername(), token.getCredentials(), getName());
         } catch (Exception e) {
