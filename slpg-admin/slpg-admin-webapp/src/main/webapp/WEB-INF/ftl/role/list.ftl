@@ -34,15 +34,29 @@
                                 <div class="am-form-group">
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs">
-                                            <button type="button" class="am-btn am-btn-default am-btn-success" onclick="location.href='/role/find'"><span class="am-icon-plus"></span> 添加</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 修改</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                            <button title="添加" type="button"
+                                                    class="am-btn am-btn-default am-btn-success"
+                                                    onclick="location.href='/role/find'"><span
+                                                    class="am-icon-plus"></span> 添加
+                                            </button>
+                                            <button title="修改" type="button" onclick="eidtCheckedData();"
+                                                    class="am-btn am-btn-default am-btn-secondary"><span
+                                                    class="am-icon-save"></span> 修改
+                                            </button>
+                                            <button title="审核" type="button"
+                                                    class="am-btn am-btn-default am-btn-warning"><span
+                                                    class="am-icon-archive"></span> 审核
+                                            </button>
+                                            <button title="删除" type="button" onclick="deleteCheckedData();"
+                                                    class="am-btn am-btn-default am-btn-danger"><span
+                                                    class="am-icon-trash-o"></span> 删除
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <form id="form" method="post">
+                            <form id="pagingForm" action="/role/list" method="post">
+                                <input type="hidden" name="access_token" value="123"/>
                                 <div class="cf">
                                     <div class="fl pl10">
                                         <div class="am-form-group tpl-table-list-select">
@@ -156,121 +170,77 @@
                                             <input type="text" class="am-form-field" placeholder="请输入搜索条件">
                                             <input type="text" class="am-form-field" placeholder="请输入搜索条件">
                                             <div class="am-input-group-btn pl10">
-                                                <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search btn-search pl10" type="button"></button>
+                                                <button title="搜索查询"
+                                                        class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search btn-search pl10"
+                                                        type="button"
+                                                        onclick="pagingForm('pagingForm', 1, ${limit.pageSize!'50'});"></button>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
+                                <div class="am-u-sm-12">
+                                    <table width="100%"
+                                           class="am-table am-table-compact am-table-striped tpl-table-black "
+                                           id="example-r">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <label title="全选/取消" class="am-checkbox" onclick="checkedData(this)">
+                                                    <input type="checkbox" data-am-ucheck>
+                                                </label>
+                                            </th>
+                                            <th>ID</th>
+                                            <th>系统编号</th>
+                                            <th>角色名称</th>
+                                            <th>使用状态</th>
+                                            <th>创建时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <#if models?? && (models?size>0)>
+                                            <#list models as model>
+                                            <tr class="gradeX">
+                                                <td>
+                                                    <label title="勾选/取消" class="am-checkbox am-secondary">
+                                                        <input type="checkbox" value="${model.id!'0'}" data-am-ucheck>
+                                                    </label>
+                                                </td>
+                                                <td>${model.id!''}</td>
+                                                <td>${model.code!''}</td>
+                                                <td>${model.name!''}</td>
+                                                <td>
+                                                    <#if model.state == 1>
+                                                        -正常
+                                                    <#else>
+                                                        -禁用
+                                                    </#if>
+                                                </td>
+                                                <td><@gtm8 time="${model.ctime}"/></td>
+                                                <td>
+                                                    <div class="tpl-table-black-operation">
+                                                        <a href="javascript:void(0);" title="修改">
+                                                            <i class="am-icon-pencil"></i> 修改
+                                                        </a>
+                                                        <a href="javascript:void(0);" title="删除"
+                                                           class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-trash"></i> 删除
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </#list>
+                                        <#else>
+                                        <tr class="gradeX">
+                                            <td colspan="7" align="center" class="center">暂无数据</td>
+                                        </tr>
+                                        </#if>
+                                        <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <@pagination fn="pagingForm" pageNo="${limit.pageNo!'0'}" pageSize="${limit.pageSize!'0'}" pageNumber="${limit.pageNumber!'0'}" />
                             </form>
-
-                            <div class="am-u-sm-12">
-                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
-                                    <thead>
-                                    <tr>
-                                        <th>文章标题</th>
-                                        <th>作者</th>
-                                        <th>时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeX">
-                                        <td>Amaze UI 模式窗口</td>
-                                        <td>张鹏飞</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有适配微信小程序的计划吗</td>
-                                        <td>天纵之人</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX">
-                                        <td>请问有没有amazeui 分享插件</td>
-                                        <td>王宽师</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>关于input输入框的问题</td>
-                                        <td>着迷</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>有没有发现官网上的下载包不好用</td>
-                                        <td>醉里挑灯看键</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="even gradeC">
-                                        <td>我建议WEB版本文件引入问题</td>
-                                        <td>罢了</td>
-                                        <td>2016-09-26</td>
-                                        <td>
-                                            <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-pencil"></i> 编辑
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!-- more data -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <@page pageFun="paging" pageNo="10" pageNumber="20" />
                         </div>
                     </div>
                 </div>
@@ -280,10 +250,5 @@
 </div>
 </div>
 <#include "../script2.ftl"/>
-<script>
-    function paging(pageNo) {
-        alert(pageNo);
-    }
-</script>
 </body>
 </html>

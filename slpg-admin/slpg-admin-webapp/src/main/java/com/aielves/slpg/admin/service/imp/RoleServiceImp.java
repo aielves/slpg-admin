@@ -6,6 +6,7 @@ import com.aielves.slpg.dao.SlpgRoleDAO;
 import com.aielves.slpg.domain.SlpgRole;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.mybatis.exception.MybatisDAOEx;
+import com.soho.mybatis.sqlcode.condition.Cnd;
 import com.soho.mybatis.sqlcode.condition.imp.SQLCnd;
 import com.soho.spring.model.RetCode;
 import com.soho.spring.mvc.model.FastMap;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * Created by shadow on 2018/5/16.
@@ -27,7 +30,14 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     public Object list(SlpgRoleVO vo) throws BizErrorEx {
-        return new FastView("role/list").done();
+        try {
+            Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
+            List<SlpgRole> list = slpgRoleDAO.findByCnd(sql);
+            return new FastView("role/list").add("models", list).add("limit", sql.getPagination()).add("vo", vo).done();
+        } catch (MybatisDAOEx ex) {
+            ex.printStackTrace();
+        }
+        throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, RetCode.BIZ_ERROR_MESSAGE);
     }
 
     @Override

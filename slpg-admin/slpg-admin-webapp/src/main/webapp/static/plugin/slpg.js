@@ -81,3 +81,48 @@ $.confirmModal = function (option) {
     });
     $modal.modal();
 }
+
+// 分页导航栏触发函数
+function pagingForm(fn, pageNo, pageSize) {
+    $("#" + fn + "_pageNo").val(pageNo);
+    $("#" + fn + "_pageSize").val(pageSize);
+    $("#" + fn).submit();
+}
+
+// 表单数据全选/反选
+function checkedData(obj) {
+    var checked = $(obj).find("input").is(':checked');
+    if (checked) {
+        $(".am-secondary").find("input[type=checkbox]").uCheck("check");
+    } else {
+        $(".am-secondary").find("input[type=checkbox]").uCheck("uncheck");
+    }
+}
+
+function eidtCheckedData() {
+    var $list = $(".am-secondary").find("input[type=checkbox]:checked");
+    if ($list.length <= 0) {
+        $.alertModal({title: '友情提示', content: '请至少选中一个'});
+        return false;
+    }
+    if ($list.length != 1) {
+        $.alertModal({title: '友情提示', content: '只能选中单个数据进行修改'});
+        return false;
+    }
+    // TODO 修改请求
+}
+
+function deleteCheckedData() {
+    var $list = $(".am-secondary").find("input[type=checkbox]:checked");
+    if ($list.length <= 0) {
+        $.alertModal({title: '友情提示', content: '请至少选中一个'});
+        return false;
+    }
+    $.confirmModal({
+        title: '友情提示', content: '删除后无法恢复,确定要删除选中的吗?', ok: function () {
+            // TODO 删除请求
+        }, no: function () {
+
+        }
+    });
+}
