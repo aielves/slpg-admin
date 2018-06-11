@@ -66,7 +66,7 @@ $.alertModal = function (option) {
     if (option.ok != undefined) {
         $modal.find('#my-alert-btn').on('click', option.ok);
     }
-    $modal.modal();
+    $modal.modal({closeViaDimmer: false});
 }
 
 $.confirmModal = function (option) {
@@ -74,6 +74,7 @@ $.confirmModal = function (option) {
     $confirm.find('#my-confirm-title').text(option.title);
     $confirm.find('#my-confirm-content').text(option.content);
     $confirm.modal({
+        closeViaDimmer: false,
         onConfirm: option.ok == undefined ? function () {
         } : option.ok,
         onCancel: option.no == undefined ? function () {
@@ -91,7 +92,7 @@ function pagingForm(fn, pageNo, pageSize) {
 
 // 表单数据全选/反选
 function checkedData(obj) {
-    var checked = $(obj).find("input").is(':checked');
+    var checked = $(obj).find("input").is(":checked");
     if (checked) {
         $(".am-secondary").find("input[type=checkbox]").uCheck("check");
     } else {
@@ -99,28 +100,69 @@ function checkedData(obj) {
     }
 }
 
-function eidtCheckedData() {
+function eidtCheckedData(url) {
     var $list = $(".am-secondary").find("input[type=checkbox]:checked");
     if ($list.length <= 0) {
-        $.alertModal({title: '友情提示', content: '请至少选中一个'});
+        $.alertModal({title: "友情提示", content: "请至少选中一个"});
         return false;
     }
     if ($list.length != 1) {
-        $.alertModal({title: '友情提示', content: '只能选中单个数据进行修改'});
+        $.alertModal({title: "友情提示", content: "只能选中单个数据进行修改"});
         return false;
     }
-    // TODO 修改请求
+    $list.each(function () {
+        top.location.href = url + "?pojo[id]=" + $(this).val();
+    });
 }
 
-function deleteCheckedData() {
+function deleteCheckedData(url, form) {
     var $list = $(".am-secondary").find("input[type=checkbox]:checked");
     if ($list.length <= 0) {
-        $.alertModal({title: '友情提示', content: '请至少选中一个'});
+        $.alertModal({title: "友情提示", content: "请至少选中一个"});
         return false;
     }
     $.confirmModal({
-        title: '友情提示', content: '删除后无法恢复,确定要删除选中的吗?', ok: function () {
-            // TODO 删除请求
+        title: "友情提示", content: "删除后无法恢复,确定要删除选中的吗?", ok: function () {
+            var idArr = "";
+            $.each($list, function (i, v) {
+                idArr += "," + $(this).val();
+            });
+            $.post(url, "pojo[idArr]=" + idArr, function (json) {
+                if (json.code == "000000") {
+                    $.alertModal({
+                        title: "操作提示", content: json.data.result, ok: function () {
+                            $("#" + form).submit();
+                        }
+                    });
+                } else {
+                    $.alertModal({
+                        title: "操作提示", content: json.msg
+                    });
+                }
+            });
+        }, no: function () {
+
+        }
+    });
+}
+
+function deleteCheckedDataById(url, form, id) {
+    $.confirmModal({
+        title: "友情提示", content: "删除后无法恢复,确定要删除选中的吗?", ok: function () {
+            var idArr = id;
+            $.post(url, "pojo[idArr]=" + idArr, function (json) {
+                if (json.code == "000000") {
+                    $.alertModal({
+                        title: "操作提示", content: json.data.result, ok: function () {
+                            $("#" + form).submit();
+                        }
+                    });
+                } else {
+                    $.alertModal({
+                        title: "操作提示", content: json.msg
+                    });
+                }
+            });
         }, no: function () {
 
         }

@@ -111,6 +111,16 @@ public class RoleServiceImp implements RoleService {
 
     @Override
     public Object delete(SlpgRoleVO vo) throws BizErrorEx {
-        return null;
+        List<Long> idArr = vo.getModelIdList();
+        if (idArr == null) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "参数ID不能为空");
+        }
+        try {
+            slpgRoleDAO.delete(new SQLCnd().in("id", idArr));
+            return new FastMap<>().add("result", "删除成功").done();
+        } catch (MybatisDAOEx ex) {
+            ex.printStackTrace();
+        }
+        throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, RetCode.BIZ_ERROR_MESSAGE);
     }
 }

@@ -32,4 +32,10 @@ public class RoleController {
         return roleService.save(vo);
     }
 
+    @ResponseBody
+    @RequestMapping("/delete")
+    public Object delete(SlpgRoleVO vo) throws BizErrorEx {
+        return roleService.delete(vo);
+    }
+
 }

@@ -16,8 +16,8 @@
             <span id="my-confirm-content"></span>
         </div>
         <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
             <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
         </div>
     </div>
 </div>

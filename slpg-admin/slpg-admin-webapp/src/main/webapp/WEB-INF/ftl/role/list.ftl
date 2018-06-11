@@ -39,7 +39,7 @@
                                                     onclick="location.href='/role/find'"><span
                                                     class="am-icon-plus"></span> 添加
                                             </button>
-                                            <button title="修改" type="button" onclick="eidtCheckedData();"
+                                            <button title="修改" type="button" onclick="eidtCheckedData('/role/find');"
                                                     class="am-btn am-btn-default am-btn-secondary"><span
                                                     class="am-icon-save"></span> 修改
                                             </button>
@@ -47,7 +47,7 @@
                                                     class="am-btn am-btn-default am-btn-warning"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
-                                            <button title="删除" type="button" onclick="deleteCheckedData();"
+                                            <button title="删除" type="button" onclick="deleteCheckedData('/role/delete', 'pagingForm');"
                                                     class="am-btn am-btn-default am-btn-danger"><span
                                                     class="am-icon-trash-o"></span> 删除
                                             </button>
@@ -219,11 +219,11 @@
                                                 <td><@gtm8 time="${model.ctime}"/></td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="javascript:void(0);" title="修改">
+                                                        <a href="/role/find?pojo[id]=${model.id!'0'}" title="修改">
                                                             <i class="am-icon-pencil"></i> 修改
                                                         </a>
                                                         <a href="javascript:void(0);" title="删除"
-                                                           class="tpl-table-black-operation-del">
+                                                           class="tpl-table-black-operation-del" onclick="deleteCheckedDataById('/role/delete', 'pagingForm', ${model.id!'0'});">
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
                                                     </div>
