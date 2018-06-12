@@ -3,7 +3,7 @@ package com.aielves.slpg.admin.aliyun;
 import com.aliyun.oss.OSSClient;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.spring.model.FileData;
-import com.soho.spring.model.OSSData;
+import com.soho.spring.model.OSSConfig;
 import com.soho.spring.model.RetCode;
 import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.security.EncryptService;
@@ -19,7 +19,7 @@ import java.io.File;
 public class AliOssService {
 
     @Autowired
-    private OSSData ossData;
+    private OSSConfig ossConfig;
     @Autowired
     private EncryptService encryptService;
 
@@ -46,18 +46,18 @@ public class AliOssService {
         if (!md5.equals(sign)) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_MESSAGE, "图片签名校验失败");
         }
-        OSSClient client = new OSSClient(ossData.getEndpoint(), encryptService.aes_d(ossData.getAppId()), encryptService.aes_d(ossData.getAppKey()));
-        client.deleteObject(ossData.getBucketName(), fileUrl.replaceAll(ossData.getDomain() + "/", ""));
+        OSSClient client = new OSSClient(ossConfig.getEndpoint(), encryptService.aes_d(ossConfig.getAppId()), encryptService.aes_d(ossConfig.getAppKey()));
+        client.deleteObject(ossConfig.getBucketName(), fileUrl.replaceAll(ossConfig.getDomain() + "/", ""));
         client.shutdown();
         return new FastMap<>().add("result", "删除成功").done();
     }
 
     private String uploadFile(Long userId, String fileName, String filePath) {
-        OSSClient client = new OSSClient(ossData.getEndpoint(), encryptService.aes_d(ossData.getAppId()), encryptService.aes_d(ossData.getAppKey()));
+        OSSClient client = new OSSClient(ossConfig.getEndpoint(), encryptService.aes_d(ossConfig.getAppId()), encryptService.aes_d(ossConfig.getAppKey()));
         String key = new StringBuffer().append(userId).append("/").append(fileName).toString();
-        client.putObject(ossData.getBucketName(), key, new File(filePath));
+        client.putObject(ossConfig.getBucketName(), key, new File(filePath));
         client.shutdown();
-        return new StringBuffer(ossData.getDomain()).append("/").append(key).toString();
+        return new StringBuffer(ossConfig.getDomain()).append("/").append(key).toString();
     }
 
 }
