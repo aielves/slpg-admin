@@ -6,13 +6,15 @@ $(function () {
             pageData[key]();
         }
     }
-
     autoLeftNav();
     $(window).resize(function () {
         autoLeftNav();
     });
-
     loadCurrentMenu();
+    var myHeadImg = $('#myHeadImg').attr('src');
+    if(myHeadImg == ''){
+        $('#myHeadImg').attr('src', 'http://static.cartoonai.com/1/152895634398877206.jpg');
+    }
 })
 
 function loadCurrentMenu() {

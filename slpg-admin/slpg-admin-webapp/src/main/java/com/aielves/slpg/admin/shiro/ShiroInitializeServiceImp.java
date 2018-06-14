@@ -34,6 +34,7 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         definition.setUnauthorizedUrl("/403");
         List<RuleChain> anonRuleChains = new ArrayList<>();  // 无权限校验
         anonRuleChains.add(new RuleChain("/static/**", "anon"));
+        anonRuleChains.add(new RuleChain("/error/**", "anon"));
         anonRuleChains.add(new RuleChain("/user/login*", "anon"));
         anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
         anonRuleChains.add(new RuleChain("/ggk/*", "anon"));

@@ -1,9 +1,9 @@
 package com.aielves.slpg.admin.service.imp;
 
-import com.aielves.slpg.admin.pojo.SlpgRoleVO;
-import com.aielves.slpg.admin.service.RoleService;
-import com.aielves.slpg.dao.SlpgRoleDAO;
-import com.aielves.slpg.domain.SlpgRole;
+import com.aielves.slpg.admin.pojo.SlpgResourceVO;
+import com.aielves.slpg.admin.service.AdmSlpgResourceService;
+import com.aielves.slpg.dao.SlpgResourceDAO;
+import com.aielves.slpg.domain.SlpgResource;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.mybatis.exception.MybatisDAOEx;
 import com.soho.mybatis.sqlcode.condition.Cnd;
@@ -23,16 +23,16 @@ import java.util.List;
  * Created by shadow on 2018/5/16.
  */
 @Component
-public class RoleServiceImp implements RoleService {
+public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
 
     @Autowired
-    private SlpgRoleDAO slpgRoleDAO;
+    private SlpgResourceDAO slpgResourceDAO;
 
     @Override
-    public Object list(SlpgRoleVO vo) throws BizErrorEx {
+    public Object list(SlpgResourceVO vo) throws BizErrorEx {
         try {
             Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
-            List<SlpgRole> list = slpgRoleDAO.findByCnd(sql);
+            List<SlpgResource> list = slpgResourceDAO.findByCnd(sql);
             return new FastView("role/list").add("models", list).add("limit", sql.getPagination()).add("vo", vo).done();
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
@@ -41,14 +41,14 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    public Object find(SlpgRoleVO vo) throws BizErrorEx {
-        SlpgRole model = vo.getModel();
+    public Object find(SlpgResourceVO vo) throws BizErrorEx {
+        SlpgResource model = vo.getModel();
         try {
             if (model != null && model.getId() != null) {
-                model = slpgRoleDAO.findById(model.getId());
+                model = slpgResourceDAO.findById(model.getId());
             }
             if (model == null || model.getId() == null) {
-                model = new SlpgRole();
+                model = new SlpgResource();
             }
         } catch (MybatisDAOEx ex) {
             throw new BizErrorEx(ex.getErrorCode(), ex.getMessage());
@@ -58,8 +58,8 @@ public class RoleServiceImp implements RoleService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Object save(SlpgRoleVO vo) throws BizErrorEx {
-        SlpgRole model = vo.getModel();
+    public Object save(SlpgResourceVO vo) throws BizErrorEx {
+        SlpgResource model = vo.getModel();
         if (model == null) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "参数不能为空");
         }
@@ -81,26 +81,26 @@ public class RoleServiceImp implements RoleService {
         try {
             if (id == null) {
                 String code = NumUtils.getIntSN(6);
-                SlpgRole newData = slpgRoleDAO.findOneByCnd(new SQLCnd().eq("code", code));
+                SlpgResource newData = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("code", code));
                 if (newData != null) {
                     throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "系统正繁忙");
                 }
-                newData = new SlpgRole();
+                newData = new SlpgResource();
                 newData.setName(name);
                 newData.setCode(code);
                 newData.setState(state);
                 newData.setCtime(System.currentTimeMillis());
-                slpgRoleDAO.insert(newData);
+                slpgResourceDAO.insert(newData);
                 return new FastMap<>().add("result", "添加成功").add("callurl", "/role/find").done();
             } else {
-                SlpgRole oldData = slpgRoleDAO.findById(id);
+                SlpgResource oldData = slpgResourceDAO.findById(id);
                 if (oldData == null) {
                     throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "没有找到数据");
                 }
                 oldData.setName(name);
                 oldData.setState(state);
                 oldData.setUtime(System.currentTimeMillis());
-                slpgRoleDAO.update(oldData);
+                slpgResourceDAO.update(oldData);
                 return new FastMap<>().add("result", "修改成功").add("callurl", "/role/find?pojo[id]=" + id).done();
             }
         } catch (MybatisDAOEx ex) {
@@ -110,13 +110,13 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    public Object delete(SlpgRoleVO vo) throws BizErrorEx {
+    public Object delete(SlpgResourceVO vo) throws BizErrorEx {
         List<Long> idArr = vo.getModelIdList();
         if (idArr == null) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "参数ID不能为空");
         }
         try {
-            slpgRoleDAO.delete(new SQLCnd().in("id", idArr));
+            slpgResourceDAO.delete(new SQLCnd().in("id", idArr));
             return new FastMap<>().add("result", "删除成功").done();
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();

@@ -7,7 +7,7 @@ import com.soho.mybatis.exception.BizErrorEx;
  * @author shadow
  * @create 2018.5.6
  */
-public interface RoleService {
+public interface AdmSlpgRoleService {
 
     // 列表
     public Object list(SlpgRoleVO vo) throws BizErrorEx;
