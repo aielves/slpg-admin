@@ -33,7 +33,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         try {
             Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
             List<SlpgResource> list = slpgResourceDAO.findByCnd(sql);
-            return new FastView("role/list").add("models", list).add("limit", sql.getPagination()).add("vo", vo).done();
+            return new FastView("resource/list").add("models", list).add("limit", sql.getPagination()).add("vo", vo).done();
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         } catch (MybatisDAOEx ex) {
             throw new BizErrorEx(ex.getErrorCode(), ex.getMessage());
         }
-        return new FastView("role/edit").add("model", model).done();
+        return new FastView("resource/edit").add("model", model).done();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -91,7 +91,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                 newData.setState(state);
                 newData.setCtime(System.currentTimeMillis());
                 slpgResourceDAO.insert(newData);
-                return new FastMap<>().add("result", "添加成功").add("callurl", "/role/find").done();
+                return new FastMap<>().add("result", "添加成功").add("callurl", "/resource/find").done();
             } else {
                 SlpgResource oldData = slpgResourceDAO.findById(id);
                 if (oldData == null) {
@@ -101,7 +101,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                 oldData.setState(state);
                 oldData.setUtime(System.currentTimeMillis());
                 slpgResourceDAO.update(oldData);
-                return new FastMap<>().add("result", "修改成功").add("callurl", "/role/find?pojo[id]=" + id).done();
+                return new FastMap<>().add("result", "修改成功").add("callurl", "/resource/find?pojo[id]=" + id).done();
             }
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();

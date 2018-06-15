@@ -17,7 +17,6 @@ public class AdmSlpgRoleController {
 
     @RequestMapping("/list")
     public Object list(SlpgRoleVO vo) throws BizErrorEx {
-        vo.setPageSize(5);
         return admSlpgRoleService.list(vo);
     }
 

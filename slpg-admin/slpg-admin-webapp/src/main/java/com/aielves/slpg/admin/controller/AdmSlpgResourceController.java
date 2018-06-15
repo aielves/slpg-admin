@@ -17,7 +17,6 @@ public class AdmSlpgResourceController {
 
     @RequestMapping("/list")
     public Object list(SlpgResourceVO vo) throws BizErrorEx {
-        vo.setPageSize(5);
         return admSlpgResourceService.list(vo);
     }
 

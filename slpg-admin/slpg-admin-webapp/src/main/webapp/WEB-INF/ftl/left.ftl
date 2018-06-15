@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="table-list-img.html">
+                    <a href="javascript:void(0);" id="_resource_list" onclick="golink('_resource_list', '/resource/list')">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 资源列表
                     </a>
                 </li>
