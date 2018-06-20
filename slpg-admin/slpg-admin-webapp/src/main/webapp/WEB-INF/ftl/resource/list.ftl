@@ -39,7 +39,8 @@
                                                     onclick="location.href='/resource/find'"><span
                                                     class="am-icon-plus"></span> 添加
                                             </button>
-                                            <button title="修改" type="button" onclick="eidtCheckedData('/resource/find');"
+                                            <button title="修改" type="button"
+                                                    onclick="eidtCheckedData('/resource/find');"
                                                     class="am-btn am-btn-default am-btn-secondary"><span
                                                     class="am-icon-save"></span> 修改
                                             </button>
@@ -47,7 +48,8 @@
                                                     class="am-btn am-btn-default am-btn-warning"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
-                                            <button title="删除" type="button" onclick="deleteCheckedData('/resource/delete', 'pagingForm');"
+                                            <button title="删除" type="button"
+                                                    onclick="deleteCheckedData('/resource/delete', 'pagingForm');"
                                                     class="am-btn am-btn-default am-btn-danger"><span
                                                     class="am-icon-trash-o"></span> 删除
                                             </button>
@@ -233,7 +235,8 @@
                                                             <i class="am-icon-pencil"></i> 修改
                                                         </a>
                                                         <a href="javascript:void(0);" title="删除"
-                                                           class="tpl-table-black-operation-del" onclick="deleteCheckedDataById('/resource/delete', 'pagingForm', ${model.id!'0'});">
+                                                           class="tpl-table-black-operation-del"
+                                                           onclick="deleteCheckedDataById('/resource/delete', 'pagingForm', ${model.id!'0'});">
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
                                                     </div>
@@ -257,7 +260,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <#include "../script2.ftl"/>
 </body>

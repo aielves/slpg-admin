@@ -99,7 +99,6 @@
         </div>
     </div>
 </div>
-</div>
 <#include "../script2.ftl"/>
 </body>
 </html>

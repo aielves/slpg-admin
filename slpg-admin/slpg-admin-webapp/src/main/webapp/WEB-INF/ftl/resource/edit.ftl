@@ -59,41 +59,11 @@
                                 <input type="hidden" id="id" name="pojo[id]" value="${model.id!''}"/>
                                 <input type="hidden" id="code" name="pojo[code]" value="${model.code!''}"/>
                                 <div class="am-form-group">
-                                    <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源名称 <span
-                                            class="tpl-form-line-small-title">Resource Name</span></label>
-                                    <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="name"
-                                               name="pojo[name]"
-                                               placeholder="请输入资源名称" value="${model.name!''}">
-                                        <small style="color: #ff5588">请输入资源名称，8个字以内。</small>
-                                    </div>
-                                </div>
-                                <div class="am-form-group">
-                                    <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源路径 <span
-                                            class="tpl-form-line-small-title">Resource Url</span></label>
-                                    <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="url"
-                                               name="pojo[url]"
-                                               placeholder="请输入资源路径" value="${model.url!''}">
-                                        <small style="color: #ff5588">请输入资源路径，资源请求访问地址。</small>
-                                    </div>
-                                </div>
-                                <div class="am-form-group">
-                                    <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源序号 <span
-                                            class="tpl-form-line-small-title">Resource Order</span></label>
-                                    <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="orderno"
-                                               name="pojo[orderno]"
-                                               placeholder="请输入资源序号" value="${model.orderno!''}">
-                                        <small style="color: #ff5588">请输入资源序号，资源排列序号。</small>
-                                    </div>
-                                </div>
-                                <div class="am-form-group">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">资源类型 <span
                                             class="tpl-form-line-small-title">Resource Type</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
                                         <select id="type" name="pojo[type]" data-am-selected="{searchBox: 0}"
-                                                style="display: none;">
+                                                style="display: none;" onchange="type_change(this)">
                                             <option value="">-请选择资源类型
                                             </option>
                                             <option value="1" <#if model.state?? && model.state==1>selected</#if>>-大模块栏目
@@ -103,6 +73,57 @@
                                             <option value="3" <#if model.state?? && model.state==3>selected</#if>>-分模块资源
                                             </option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="sex" class="am-u-sm-12 am-form-label am-text-left">优先级别 <span
+                                            class="tpl-form-line-small-title">Resource Order</span></label>
+                                    <div class="am-u-sm-12  am-margin-top-xs">
+                                        <select id="type" name="pojo[orderno]" data-am-selected="{searchBox: 0}"
+                                                style="display: none;">
+                                            <option value="">-请选择资源优先级
+                                            </option>
+                                            <option value="1" <#if model.state?? && model.state==1>selected</#if>>1
+                                            </option>
+                                            <option value="2" <#if model.state?? && model.state==2>selected</#if>>2
+                                            </option>
+                                            <option value="3" <#if model.state?? && model.state==3>selected</#if>>3
+                                            </option>
+                                            <option value="4" <#if model.state?? && model.state==4>selected</#if>>4
+                                            </option>
+                                            <option value="5" <#if model.state?? && model.state==5>selected</#if>>5
+                                            </option>
+                                            <option value="6" <#if model.state?? && model.state==6>selected</#if>>6
+                                            </option>
+                                            <option value="7" <#if model.state?? && model.state==7>selected</#if>>7
+                                            </option>
+                                            <option value="8" <#if model.state?? && model.state==8>selected</#if>>8
+                                            </option>
+                                            <option value="9" <#if model.state?? && model.state==9>selected</#if>>9
+                                            </option>
+                                            <option value="10" <#if model.state?? && model.state==10>selected</#if>>10
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源名称 <span
+                                            class="tpl-form-line-small-title">Resource Name</span></label>
+                                    <div class="am-u-sm-12">
+                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="name"
+                                               name="pojo[name]"
+                                               placeholder="请输入资源名称" value="${model.name!''}">
+                                        <small style="color: #ff5588">请输入资源名称，10个字以内。</small>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源路径 <span
+                                            class="tpl-form-line-small-title">Resource Url</span></label>
+                                    <div class="am-u-sm-12">
+                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="url"
+                                               name="pojo[url]"
+                                               placeholder="请输入资源路径" value="${model.url!''}">
+                                        <small style="color: #ff5588">请输入资源访问地址,资源类型为大小栏目可不填写。</small>
                                     </div>
                                 </div>
                                 <div class="am-form-group">
@@ -135,7 +156,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <#include "../script2.ftl"/>
 </body>

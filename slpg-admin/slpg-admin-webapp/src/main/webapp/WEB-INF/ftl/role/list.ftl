@@ -47,7 +47,8 @@
                                                     class="am-btn am-btn-default am-btn-warning"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
-                                            <button title="删除" type="button" onclick="deleteCheckedData('/role/delete', 'pagingForm');"
+                                            <button title="删除" type="button"
+                                                    onclick="deleteCheckedData('/role/delete', 'pagingForm');"
                                                     class="am-btn am-btn-default am-btn-danger"><span
                                                     class="am-icon-trash-o"></span> 删除
                                             </button>
@@ -223,7 +224,8 @@
                                                             <i class="am-icon-pencil"></i> 修改
                                                         </a>
                                                         <a href="javascript:void(0);" title="删除"
-                                                           class="tpl-table-black-operation-del" onclick="deleteCheckedDataById('/role/delete', 'pagingForm', ${model.id!'0'});">
+                                                           class="tpl-table-black-operation-del"
+                                                           onclick="deleteCheckedDataById('/role/delete', 'pagingForm', ${model.id!'0'});">
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
                                                     </div>
@@ -247,7 +249,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <#include "../script2.ftl"/>
 </body>

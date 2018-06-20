@@ -65,12 +65,18 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         }
         Long id = model.getId();
         String name = model.getName();
+        String url = model.getUrl();
+        Integer orderno = model.getOrderno();
+        Integer type = model.getType();
         Integer state = model.getState();
         if (StringUtils.isEmpty(name)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "角色名称不能为空");
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源名称不能为空");
         }
-        if (name.length() > 8) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "角色名称最多8个字符");
+        if (name.length() > 10) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源名称最多10个字符");
+        }
+        if (StringUtils.isEmpty(orderno)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "优先级不能为空");
         }
         if (StringUtils.isEmpty(state)) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型不能为空");
