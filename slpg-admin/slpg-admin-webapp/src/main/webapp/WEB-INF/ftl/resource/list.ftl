@@ -196,6 +196,7 @@
                                             <th>所属小模块</th>
                                             <th>资源编号</th>
                                             <th>资源名称</th>
+                                            <th>资源简介</th>
                                             <th>资源路径</th>
                                             <th>资源类型</th>
                                             <th>资源排序</th>
@@ -218,6 +219,7 @@
                                                 <td>${model.pid!''}</td>
                                                 <td>${model.code!''}</td>
                                                 <td>${model.name!''}</td>
+                                                <td>${model.resume!''}</td>
                                                 <td>${model.url!''}</td>
                                                 <td>${model.type!''}</td>
                                                 <td>${model.orderno!''}</td>
@@ -245,7 +247,7 @@
                                             </#list>
                                         <#else>
                                         <tr class="gradeX">
-                                            <td colspan="12" align="center" class="center">暂无数据</td>
+                                            <td colspan="13" align="center" class="center">暂无数据</td>
                                         </tr>
                                         </#if>
                                         <!-- more data -->

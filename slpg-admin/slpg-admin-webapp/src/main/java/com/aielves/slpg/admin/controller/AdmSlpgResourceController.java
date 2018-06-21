@@ -37,4 +37,10 @@ public class AdmSlpgResourceController {
         return admSlpgResourceService.delete(vo);
     }
 
+    @ResponseBody
+    @RequestMapping("/findByPid")
+    public Object findByPid(SlpgResourceVO vo) throws BizErrorEx {
+        return admSlpgResourceService.findByPid(vo);
+    }
+
 }

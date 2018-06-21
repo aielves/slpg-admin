@@ -21,4 +21,7 @@ public interface AdmSlpgResourceService {
     // 删除
     public Object delete(SlpgResourceVO vo) throws BizErrorEx;
 
+    // 获取资源列表
+    public Object findByPid(SlpgResourceVO vo) throws BizErrorEx;
+
 }

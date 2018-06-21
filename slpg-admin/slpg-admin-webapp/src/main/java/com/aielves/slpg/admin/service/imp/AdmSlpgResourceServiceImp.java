@@ -65,6 +65,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         }
         Long id = model.getId();
         String name = model.getName();
+        String resume = model.getResume();
         String url = model.getUrl();
         Integer orderno = model.getOrderno();
         Integer type = model.getType();
@@ -84,6 +85,18 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         if (state < 1 || state > 2) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型异常");
         }
+        if (StringUtils.isEmpty(type)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型不能为空");
+        }
+        if (type < 1 || type > 3) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型异常");
+        }
+        if (type == 3 && StringUtils.isEmpty(url)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "分模块资源请求地址不能为空");
+        }
+        if (!StringUtils.isEmpty(resume) && resume.length() > 50) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源简介最多50个字符");
+        }
         try {
             if (id == null) {
                 String code = NumUtils.getIntSN(6);
@@ -92,8 +105,15 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                     throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "系统正繁忙");
                 }
                 newData = new SlpgResource();
+                newData.setPid(0l);
                 newData.setName(name);
                 newData.setCode(code);
+                newData.setOrderno(orderno);
+                newData.setType(type);
+                if (type == 3) {
+                    newData.setUrl(url);
+                }
+                newData.setResume(resume);
                 newData.setState(state);
                 newData.setCtime(System.currentTimeMillis());
                 slpgResourceDAO.insert(newData);
@@ -104,6 +124,10 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                     throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "没有找到数据");
                 }
                 oldData.setName(name);
+                oldData.setOrderno(orderno);
+                oldData.setType(type);
+                oldData.setUrl(url);
+                oldData.setResume(resume);
                 oldData.setState(state);
                 oldData.setUtime(System.currentTimeMillis());
                 slpgResourceDAO.update(oldData);
@@ -124,6 +148,20 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         try {
             slpgResourceDAO.delete(new SQLCnd().in("id", idArr));
             return new FastMap<>().add("result", "删除成功").done();
+        } catch (MybatisDAOEx ex) {
+            ex.printStackTrace();
+        }
+        throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, RetCode.BIZ_ERROR_MESSAGE);
+    }
+
+    @Override
+    public Object findByPid(SlpgResourceVO vo) throws BizErrorEx {
+        SlpgResource model = vo.getModel();
+        if (model == null || model.getPid() == null) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "参数PID不能为空");
+        }
+        try {
+            return slpgResourceDAO.findByCnd(new SQLCnd().eq("pid", model.getPid()));
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
         }
