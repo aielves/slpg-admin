@@ -214,31 +214,40 @@
                                                         <input type="checkbox" value="${model.id!'0'}" data-am-ucheck>
                                                     </label>
                                                 </td>
-                                                <td>${model.id!''}</td>
-                                                <td></td>
-                                                <td>${model.pid!''}</td>
-                                                <td>${model.code!''}</td>
-                                                <td>${model.name!''}</td>
-                                                <td>${model.resume!''}</td>
-                                                <td>${model.url!''}</td>
-                                                <td>${model.type!''}</td>
-                                                <td>${model.orderno!''}</td>
+                                                <td>${model.model.id!''}</td>
+                                                <td>${model.parent1!''}</td>
+                                                <td>${model.parent2!''}</td>
+                                                <td>${model.model.code!''}</td>
+                                                <td>${model.model.name!''}</td>
+                                                <td>${model.model.resume!''}</td>
+                                                <td>${model.model.url!''}</td>
                                                 <td>
-                                                    <#if model.state == 1>
+                                                    <#if model.model.type == 1>
+                                                        大模块栏目
+                                                    <#elseif model.model.type == 2>
+                                                        小模块栏目
+                                                    <#else>
+                                                        节点块资源
+                                                    </#if>
+                                                </td>
+                                                <td>${model.model.orderno!''}</td>
+                                                <td>
+                                                    <#if model.model.state == 1>
                                                         -正常
                                                     <#else>
                                                         -禁用
                                                     </#if>
                                                 </td>
-                                                <td><@gtm8 time="${model.ctime}"/></td>
+                                                <td><@gtm8 time="${model.model.ctime}"/></td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="/resource/find?pojo[id]=${model.id!'0'}" title="修改">
+                                                        <a href="/resource/find?pojo[id]=${model.model.id!'0'}"
+                                                           title="修改">
                                                             <i class="am-icon-pencil"></i> 修改
                                                         </a>
                                                         <a href="javascript:void(0);" title="删除"
                                                            class="tpl-table-black-operation-del"
-                                                           onclick="deleteCheckedDataById('/resource/delete', 'pagingForm', ${model.id!'0'});">
+                                                           onclick="deleteCheckedDataById('/resource/delete', 'pagingForm', ${model.model.id!'0'});">
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
                                                     </div>

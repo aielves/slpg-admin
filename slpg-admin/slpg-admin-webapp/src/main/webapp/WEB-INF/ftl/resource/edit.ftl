@@ -64,42 +64,34 @@
                                     <div class="am-u-sm-12  am-margin-top-xs">
                                         <select id="type" name="pojo[type]" data-am-selected="{searchBox: 0}"
                                                 style="display: none;" onchange="type_change(this);">
-                                            <option value="">-请选择资源类型
+                                            <option value="">
                                             </option>
                                             <option value="1" <#if model.type?? && model.type==1>selected</#if>>-大模块栏目
                                             </option>
                                             <option value="2" <#if model.type?? && model.type==2>selected</#if>>-小模块栏目
                                             </option>
-                                            <option value="3" <#if model.type?? && model.type==3>selected</#if>>-分模块资源
+                                            <option value="3" <#if model.type?? && model.type==3>selected</#if>>-节点块资源
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="am-form-group">
+                                <div class="am-form-group" id="am-form-group-level1" style="display: none;">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属大模块 <span
                                             class="tpl-form-line-small-title">Resource Level 1</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select id="level1" name="pojo[type]" data-am-selected="{searchBox: 0}"
-                                                style="display: none;">
-                                            <option value="">-请选择所属大模块
-                                            </option>
+                                        <select id="am-form-group-level1-select" name="pid1"
+                                                data-am-selected="{searchBox: 0}"
+                                                style="display: none;" onchange="level1_change(this)">
                                         </select>
                                     </div>
                                 </div>
-                                <div class="am-form-group">
+                                <div class="am-form-group" id="am-form-group-level2" style="display: none;">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属小模块 <span
                                             class="tpl-form-line-small-title">Resource Level 2</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select name="pojo[type]" data-am-selected="{searchBox: 0}"
+                                        <select id="am-form-group-level2-select" name="pid2"
+                                                data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
-                                            <option value="">-请选择所属小模块
-                                            </option>
-                                            <option value="1" <#if model.type?? && model.type==1>selected</#if>>-大模块栏目
-                                            </option>
-                                            <option value="2" <#if model.type?? && model.type==2>selected</#if>>-小模块栏目
-                                            </option>
-                                            <option value="3" <#if model.type?? && model.type==3>selected</#if>>-分模块资源
-                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,7 +131,7 @@
                                     <div class="am-u-sm-12  am-margin-top-xs">
                                         <select id="orderno" name="pojo[orderno]" data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
-                                            <option value="">-请选择资源优先级
+                                            <option value="">
                                             </option>
                                             <option value="1" <#if model.orderno?? && model.orderno ==1>selected</#if>>1
                                             </option>
@@ -199,12 +191,45 @@
 <#include "../script2.ftl"/>
 <script>
     function type_change(obj) {
-        var val = $(obj).val();
-        if (val == "3") {
-            $.post("/resource/findByPid", "pojo[pid]=" + 1, function (json) {
-                console.log(json);
+        var level1 = $("#am-form-group-level1-select");
+        var level2 = $("#am-form-group-level2-select");
+        level1.html("<option value=''></option>");
+        level2.html("<option value=''></option>");
+        var type = $(obj).val();
+        if (type == "1") { // 所属为大模块屏蔽2,3级资源
+            $("#am-form-group-level1").hide();
+            $("#am-form-group-level2").hide();
+        } else {
+            $("#am-form-group-level1").show(); // 非1级资源则显示1级资源列表
+            $.post("/resource/findByPid", "pojo[pid]=" + 0, function (json) {
+                if (json.code == "000000") {
+                    $.each(json.data, function (i, v) {
+                        level1.append("<option value='" + v.id + "'>" + v.name + "</option>")
+                    });
+                }
             });
-            // $("#level1").append("<option value='1'>我的测试</option>")
+            if (type == "2") { // 如是2级资源则屏蔽3级资源
+                $("#am-form-group-level2").hide();
+            } else { // 如是3级资源则显示3级资源
+                $("#am-form-group-level2").show();
+            }
+        }
+    }
+
+    function level1_change(obj) {
+        var level2 = $("#am-form-group-level2-select");
+        level2.html("<option value=''></option>");
+        var type_val = $("#type").val();
+        var level1_val = $(obj).val();
+        if (type_val == "3" && level1_val != "") {
+            $("#am-form-group-level2").show(); // 显示2级资源
+            $.post("/resource/findByPid", "pojo[pid]=" + level1_val, function (json) {
+                if (json.code == "000000") {
+                    $.each(json.data, function (i, v) {
+                        level2.append("<option value='" + v.id + "'>" + v.name + "</option>")
+                    });
+                }
+            });
         }
     }
 </script>

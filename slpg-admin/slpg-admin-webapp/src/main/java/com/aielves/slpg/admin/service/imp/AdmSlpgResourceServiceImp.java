@@ -17,7 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shadow on 2018/5/16.
@@ -32,8 +34,32 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
     public Object list(SlpgResourceVO vo) throws BizErrorEx {
         try {
             Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
-            List<SlpgResource> list = slpgResourceDAO.findByCnd(sql);
-            return new FastView("resource/list").add("models", list).add("limit", sql.getPagination()).add("vo", vo).done();
+            List<SlpgResource> resources = slpgResourceDAO.findByCnd(sql);
+            List<Map<String, Object>> retList = new ArrayList<>(resources.size());
+            for (SlpgResource resource : resources) {
+                FastMap map = new FastMap<>()
+                        .add("model", resource);
+                if (resource.getType() == 2 && resource.getPid() != null) {
+                    SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", resource.getPid()));
+                    if (parent1 != null) {
+                        map.add("parent1", parent1.getName());
+                    }
+                }
+                if (resource.getType() == 3 && resource.getPid() != null) {
+                    SlpgResource parent2 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", resource.getPid()));
+                    if (parent2 != null) {
+                        map.add("parent2", parent2.getName());
+                        if (parent2.getPid() != null) {
+                            SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", parent2.getPid()));
+                            if (parent1 != null) {
+                                map.add("parent1", parent1.getName());
+                            }
+                        }
+                    }
+                }
+                retList.add(map.done());
+            }
+            return new FastView("resource/list").add("models", retList).add("limit", sql.getPagination()).add("vo", vo).done();
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
         }
