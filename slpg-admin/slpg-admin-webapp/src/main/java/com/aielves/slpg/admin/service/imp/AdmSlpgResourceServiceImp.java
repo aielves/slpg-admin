@@ -6,6 +6,7 @@ import com.aielves.slpg.dao.SlpgResourceDAO;
 import com.aielves.slpg.domain.SlpgResource;
 import com.soho.mybatis.exception.BizErrorEx;
 import com.soho.mybatis.exception.MybatisDAOEx;
+import com.soho.mybatis.sqlcode.aconst.SortBy;
 import com.soho.mybatis.sqlcode.condition.Cnd;
 import com.soho.mybatis.sqlcode.condition.imp.SQLCnd;
 import com.soho.spring.model.RetCode;
@@ -40,17 +41,17 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                 FastMap map = new FastMap<>()
                         .add("model", resource);
                 if (resource.getType() == 2 && resource.getPid() != null) {
-                    SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", resource.getPid()));
+                    SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", resource.getPid()));
                     if (parent1 != null) {
                         map.add("parent1", parent1.getName());
                     }
                 }
                 if (resource.getType() == 3 && resource.getPid() != null) {
-                    SlpgResource parent2 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", resource.getPid()));
+                    SlpgResource parent2 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", resource.getPid()));
                     if (parent2 != null) {
                         map.add("parent2", parent2.getName());
                         if (parent2.getPid() != null) {
-                            SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("pid", parent2.getPid()));
+                            SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", parent2.getPid()));
                             if (parent1 != null) {
                                 map.add("parent1", parent1.getName());
                             }
@@ -69,9 +70,28 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
     @Override
     public Object find(SlpgResourceVO vo) throws BizErrorEx {
         SlpgResource model = vo.getModel();
+        FastMap map = new FastMap();
         try {
             if (model != null && model.getId() != null) {
                 model = slpgResourceDAO.findById(model.getId());
+                if (model.getType() == 2 && model.getPid() != null) {
+                    SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", model.getPid()));
+                    if (parent1 != null) {
+                        map.add("parent1", parent1.getName());
+                    }
+                }
+                if (model.getType() == 3 && model.getPid() != null) {
+                    SlpgResource parent2 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", model.getPid()));
+                    if (parent2 != null) {
+                        map.add("parent2", parent2.getName());
+                        if (parent2.getPid() != null) {
+                            SlpgResource parent1 = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("id", parent2.getPid()));
+                            if (parent1 != null) {
+                                map.add("parent1", parent1.getName());
+                            }
+                        }
+                    }
+                }
             }
             if (model == null || model.getId() == null) {
                 model = new SlpgResource();
@@ -79,7 +99,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         } catch (MybatisDAOEx ex) {
             throw new BizErrorEx(ex.getErrorCode(), ex.getMessage());
         }
-        return new FastView("resource/edit").add("model", model).done();
+        return new FastView("resource/edit").add("model", model).add("pid", map.done()).done();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -118,27 +138,39 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型异常");
         }
         if (type == 3 && StringUtils.isEmpty(url)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "分模块资源请求地址不能为空");
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "节点资源访问地址不能为空");
+        } else {
+            url = url.replaceAll(" ", "");
         }
         if (!StringUtils.isEmpty(resume) && resume.length() > 50) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源简介最多50个字符");
         }
         try {
             if (id == null) {
+                Long pid1 = vo.getPid1();
+                Long pid2 = vo.getPid2();
+                if (type == 2 && pid1 == null) {
+                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属大模块资源");
+                }
+                if (type == 3 && pid2 == null) {
+                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属小模块资源");
+                }
                 String code = NumUtils.getIntSN(6);
                 SlpgResource newData = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("code", code));
                 if (newData != null) {
                     throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "系统正繁忙");
                 }
                 newData = new SlpgResource();
-                newData.setPid(0l);
+                if (type == 2) {
+                    newData.setPid(pid1);
+                } else if (type == 3) {
+                    newData.setPid(pid2);
+                    newData.setUrl(url);
+                }
+                newData.setType(type);
                 newData.setName(name);
                 newData.setCode(code);
                 newData.setOrderno(orderno);
-                newData.setType(type);
-                if (type == 3) {
-                    newData.setUrl(url);
-                }
                 newData.setResume(resume);
                 newData.setState(state);
                 newData.setCtime(System.currentTimeMillis());
@@ -187,7 +219,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "参数PID不能为空");
         }
         try {
-            return slpgResourceDAO.findByCnd(new SQLCnd().eq("pid", model.getPid()));
+            return slpgResourceDAO.findByCnd(new SQLCnd().eq("pid", model.getPid()).orderby("orderno", SortBy.A));
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
         }

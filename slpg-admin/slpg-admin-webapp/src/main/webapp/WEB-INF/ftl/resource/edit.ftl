@@ -57,7 +57,33 @@
                             <form id="form" class="am-form tpl-form-border-form">
                             <@formToken/>
                                 <input type="hidden" id="id" name="pojo[id]" value="${model.id!''}"/>
-                                <input type="hidden" id="code" name="pojo[code]" value="${model.code!''}"/>
+                            <#if model.id??>
+                                <input type="hidden" name="pojo[type]" value="${model.type!''}"/>
+                                <div class="am-form-group">
+                                    <label for="sex" class="am-u-sm-12 am-form-label am-text-left">资源类型 <span
+                                            class="tpl-form-line-small-title">Resource Type</span></label>
+                                    <div class="am-u-sm-12  am-margin-top-xs">
+                                        <select data-am-selected="{searchBox: 0}"
+                                                style="display: none;" readonly="readonly">
+                                            <option value="">
+                                            </option>
+                                            <#if model.type == 1>
+                                                <option value="1" <#if model.type?? && model.type==1>selected</#if>>
+                                                    -大模块栏目
+                                                </option>
+                                            <#elseif model.type == 2>
+                                                <option value="2" <#if model.type?? && model.type==2>selected</#if>>
+                                                    -小模块栏目
+                                                </option>
+                                            <#elseif model.type == 3>
+                                                <option value="3" <#if model.type?? && model.type==3>selected</#if>>
+                                                    -节点块资源
+                                                </option>
+                                            </#if>
+                                        </select>
+                                    </div>
+                                </div>
+                            <#else>
                                 <div class="am-form-group">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">资源类型 <span
                                             class="tpl-form-line-small-title">Resource Type</span></label>
@@ -75,6 +101,21 @@
                                         </select>
                                     </div>
                                 </div>
+                            </#if>
+                            <#if model.id??>
+                                <#if pid.parent1??>
+                                    <div class="am-form-group" id="am-form-group-level1">
+                                        <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属大模块 <span
+                                                class="tpl-form-line-small-title">Resource Level 1</span></label>
+                                        <div class="am-u-sm-12">
+                                            <input type="text" class="tpl-form-input am-margin-top-xs"
+                                                   readonly="readonly"
+                                                   value="${pid.parent1!''}">
+                                            <small style="color: #ff5588">资源所属大模块，不可修改。</small>
+                                        </div>
+                                    </div>
+                                </#if>
+                            <#else>
                                 <div class="am-form-group" id="am-form-group-level1" style="display: none;">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属大模块 <span
                                             class="tpl-form-line-small-title">Resource Level 1</span></label>
@@ -85,6 +126,21 @@
                                         </select>
                                     </div>
                                 </div>
+                            </#if>
+                            <#if model.id??>
+                                <#if pid.parent2??>
+                                    <div class="am-form-group" id="am-form-group-level2">
+                                        <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属小模块 <span
+                                                class="tpl-form-line-small-title">Resource Level 2</span></label>
+                                        <div class="am-u-sm-12">
+                                            <input type="text" class="tpl-form-input am-margin-top-xs"
+                                                   readonly="readonly"
+                                                   value="${pid.parent2!''}">
+                                            <small style="color: #ff5588">资源所属小模块，不可修改。</small>
+                                        </div>
+                                    </div>
+                                </#if>
+                            <#else>
                                 <div class="am-form-group" id="am-form-group-level2" style="display: none;">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">所属小模块 <span
                                             class="tpl-form-line-small-title">Resource Level 2</span></label>
@@ -95,6 +151,7 @@
                                         </select>
                                     </div>
                                 </div>
+                            </#if>
                                 <div class="am-form-group">
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源名称 <span
                                             class="tpl-form-line-small-title">Resource Name</span></label>
@@ -122,7 +179,7 @@
                                         <input type="text" class="tpl-form-input am-margin-top-xs" id="url"
                                                name="pojo[url]"
                                                placeholder="请输入资源路径" value="${model.url!''}">
-                                        <small style="color: #ff5588">请输入资源访问地址,资源类型为大小栏目可不填写。</small>
+                                        <small style="color: #ff5588">请输入资源访问地址,资源类型为大小栏目无需填写。</small>
                                     </div>
                                 </div>
                                 <div class="am-form-group">
