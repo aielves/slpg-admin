@@ -44,7 +44,7 @@
                                                     class="am-btn am-btn-default am-btn-secondary"><span
                                                     class="am-icon-save"></span> 修改
                                             </button>
-                                            <button title="审核" type="button"
+                                            <button title="审核" type="button" onclick="reviewData();"
                                                     class="am-btn am-btn-default am-btn-warning"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
@@ -60,117 +60,42 @@
                             <form id="pagingForm" action="/resource/list" method="post">
                                 <input type="hidden" name="access_token" value="123"/>
                                 <div class="cf">
-                                    <div class="fl pl10">
+                                    <div class="fl pl10" id="am-form-group-level1">
                                         <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
+                                            <select data-am-selected="{btnSize: 'sm'}"
+                                                    id="am-form-group-level1-select" name="pid1" style="display: none;"
+                                                    onchange="level1_change(this)">
+                                                <option value="-1">
+                                                    请选择大模块栏目
+                                                </option>
+                                            <#if level1?? && (level1?size>0)>
+                                                <#list level1 as lv>
+                                                    <option value="${lv.id!'0'}"
+                                                            <#if vo.pid1??&&vo.pid1 == lv.id>selected</#if>>${lv.name!''}</option>
+                                                </#list>
+                                            </#if>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="fl pl10">
+                                    <div class="fl pl10" id="am-form-group-level2">
                                         <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fl pl10">
-                                        <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fl pl10">
-                                        <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fl pl10">
-                                        <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fl pl10">
-                                        <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fl pl10">
-                                        <div class="am-form-group tpl-table-list-select">
-                                            <select data-am-selected="{btnSize: 'sm'}">
-                                                <option value="option1">所有类别</option>
-                                                <option value="option2">IT业界</option>
-                                                <option value="option3">数码产品</option>
-                                                <option value="option3">笔记本电脑</option>
-                                                <option value="option3">平板电脑</option>
-                                                <option value="option3">只能手机</option>
-                                                <option value="option3">超极本</option>
+                                            <select data-am-selected="{btnSize: 'sm'}"
+                                                    id="am-form-group-level2-select" name="pid2" style="display: none;">
+                                                <option value="-1">
+                                                    请选择小模块栏目
+                                                </option>
+                                            <#if level2?? && (level2?size>0)>
+                                                <#list level2 as lv>
+                                                    <option value="${lv.id!'0'}"
+                                                            <#if vo.pid2??&&vo.pid2 == lv.id>selected</#if>>${lv.name!''}</option>
+                                                </#list>
+                                            </#if>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="search-group cf">
                                         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                        </div>
-                                    </div>
-                                    <div class="search-group cf">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
-                                            <input type="text" class="am-form-field" placeholder="请输入搜索条件">
+                                            <input type="text" class="am-form-field" placeholder="模糊查询资源名称">
                                             <div class="am-input-group-btn pl10">
                                                 <button title="搜索查询"
                                                         class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search btn-search pl10"
@@ -211,7 +136,8 @@
                                             <tr class="gradeX">
                                                 <td>
                                                     <label title="勾选/取消" class="am-checkbox am-secondary">
-                                                        <input type="checkbox" value="${model.id!'0'}" data-am-ucheck>
+                                                        <input type="checkbox" value="${model.model.id!'0'}"
+                                                               data-am-ucheck>
                                                     </label>
                                                 </td>
                                                 <td>${model.model.id!''}</td>
@@ -273,5 +199,21 @@
     </div>
 </div>
 <#include "../script2.ftl"/>
+<script>
+    function level1_change(obj) {
+        var level2 = $("#am-form-group-level2-select");
+        level2.html("<option value='-1'>请选择小模块栏目</option>");
+        var level1_val = $(obj).val();
+        if (level1_val != "-1") {
+            $.post("/resource/findByPid", "pojo[pid]=" + level1_val, function (json) {
+                if (json.code == "000000") {
+                    $.each(json.data, function (i, v) {
+                        level2.append("<option value='" + v.id + "'>" + v.name + "</option>")
+                    });
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>

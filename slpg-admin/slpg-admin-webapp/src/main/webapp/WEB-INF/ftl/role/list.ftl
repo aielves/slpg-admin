@@ -43,7 +43,7 @@
                                                     class="am-btn am-btn-default am-btn-secondary"><span
                                                     class="am-icon-save"></span> 修改
                                             </button>
-                                            <button title="审核" type="button"
+                                            <button title="审核" type="button" onclick="reviewData();"
                                                     class="am-btn am-btn-default am-btn-warning"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>

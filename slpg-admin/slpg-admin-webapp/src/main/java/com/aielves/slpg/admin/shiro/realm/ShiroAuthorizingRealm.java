@@ -51,7 +51,7 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
         }
         String username = token.getUsername();
         String password = new String(token.getPassword());
-        if (!RGXUtils.matches(username, RGX.ACCOUNT) || !RGXUtils.matches(password, RGX.PASSWORD)) {
+        if (!RGXUtils.isAccount(username) || !RGXUtils.isPassword(password)) {
             throw new AuthenticationException("账号/密码错误");
         }
         try {

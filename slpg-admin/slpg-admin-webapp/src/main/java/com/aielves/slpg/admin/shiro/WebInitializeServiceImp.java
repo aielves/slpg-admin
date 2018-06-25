@@ -1,11 +1,14 @@
 package com.aielves.slpg.admin.shiro;
 
+import com.aielves.slpg.admin.freemarker.MenuTag;
 import com.aielves.slpg.admin.shiro.realm.ShiroAuthorizingRealm;
 import com.soho.aliyun.ggk.interceptor.KillRobotInterceptor;
 import com.soho.spring.mvc.interceptor.FormTokenInterceptor;
+import com.soho.spring.mvc.model.FastMap;
 import com.soho.spring.shiro.initialize.InitDefinition;
 import com.soho.spring.shiro.initialize.RuleChain;
-import com.soho.spring.shiro.initialize.ShiroInitializeService;
+import com.soho.spring.shiro.initialize.WebInitializeService;
+import freemarker.template.TemplateDirectiveModel;
 import org.apache.shiro.realm.Realm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,13 +24,13 @@ import java.util.Map;
  * @author shadow
  */
 @Component
-public class ShiroInitializeServiceImp implements ShiroInitializeService {
+public class WebInitializeServiceImp implements WebInitializeService {
 
     @Autowired
     private ShiroAuthorizingRealm shiroAuthorizingRealm;
 
     @Override
-    public InitDefinition initFilterChainDefinition() {
+    public InitDefinition initShiroFilterChainDefinition() {
         InitDefinition definition = new InitDefinition();
         definition.setLoginUrl("/user/loginInit");
         definition.setSuccessUrl("/user/index");
@@ -37,6 +40,7 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
         anonRuleChains.add(new RuleChain("/error/**", "anon"));
         anonRuleChains.add(new RuleChain("/user/login*", "anon"));
         anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
+        anonRuleChains.add(new RuleChain("/user/leftPage*", "anon"));
         anonRuleChains.add(new RuleChain("/ggk/*", "anon"));
         List<RuleChain> roleRuleChains = new ArrayList<>(); // 有权限校验
         roleRuleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));
@@ -48,14 +52,14 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     }
 
     @Override
-    public List<Realm> initRealms() {
+    public List<Realm> initShiroRealms() {
         List<Realm> realms = new ArrayList<>();
         realms.add(shiroAuthorizingRealm);
         return realms;
     }
 
     @Override
-    public Map<String, Filter> initFilters() {
+    public Map<String, Filter> initShiroFilters() {
         return new LinkedHashMap<>();
     }
 
@@ -65,11 +69,16 @@ public class ShiroInitializeServiceImp implements ShiroInitializeService {
     }
 
     @Override
-    public List<HandlerInterceptor> initInterceptor() {
+    public List<HandlerInterceptor> initWebMVCInterceptor() {
         List<HandlerInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new KillRobotInterceptor());
         interceptors.add(new FormTokenInterceptor());
         return interceptors;
+    }
+
+    @Override
+    public Map<String, TemplateDirectiveModel> initFreeMarkerTag() {
+        return new FastMap<TemplateDirectiveModel>().add("leftMenu", new MenuTag()).done();
     }
 
 }

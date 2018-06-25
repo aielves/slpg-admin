@@ -35,6 +35,11 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
     public Object list(SlpgResourceVO vo) throws BizErrorEx {
         try {
             Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
+            if (vo.getPid2() != null && vo.getPid2() != -1) {
+                sql.eq("pid", vo.getPid2());
+            } else if (vo.getPid1() != null && vo.getPid1() != -1) {
+                sql.eq("pid", vo.getPid1());
+            }
             List<SlpgResource> resources = slpgResourceDAO.findByCnd(sql);
             List<Map<String, Object>> retList = new ArrayList<>(resources.size());
             for (SlpgResource resource : resources) {
@@ -60,7 +65,14 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                 }
                 retList.add(map.done());
             }
-            return new FastView("resource/list").add("models", retList).add("limit", sql.getPagination()).add("vo", vo).done();
+            List<SlpgResource> level1 = slpgResourceDAO.findByCnd(new SQLCnd().eq("pid", 0).orderby("orderno", SortBy.A));
+            List<SlpgResource> level2 = null;
+            if (vo.getPid1() != null && vo.getPid1() != -1) {
+                level2 = slpgResourceDAO.findByCnd(new SQLCnd().eq("pid", vo.getPid1()).orderby("orderno", SortBy.A));
+            } else {
+                level2 = new ArrayList<>();
+            }
+            return new FastView("resource/list").add("models", retList).add("limit", sql.getPagination()).add("vo", vo).add("level1", level1).add("level2", level2).done();
         } catch (MybatisDAOEx ex) {
             ex.printStackTrace();
         }
@@ -150,10 +162,10 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
                 Long pid1 = vo.getPid1();
                 Long pid2 = vo.getPid2();
                 if (type == 2 && pid1 == null) {
-                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属大模块资源");
+                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属大模块栏目");
                 }
                 if (type == 3 && pid2 == null) {
-                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属小模块资源");
+                    throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "请选择所属小模块栏目");
                 }
                 String code = NumUtils.getIntSN(6);
                 SlpgResource newData = slpgResourceDAO.findOneByCnd(new SQLCnd().eq("code", code));

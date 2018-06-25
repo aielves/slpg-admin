@@ -168,3 +168,7 @@ function deleteCheckedDataById(url, form, id) {
         }
     });
 }
+
+function reviewData() {
+    $.alertModal({title: "友情提示", content: "暂不支持该功能"});
+}
