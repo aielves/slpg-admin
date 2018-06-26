@@ -191,10 +191,10 @@
                                                 </label>
                                             </th>
                                             <th>ID</th>
-                                            <th>系统编号</th>
-                                            <th>角色名称</th>
-                                            <th>使用状态</th>
-                                            <th>创建时间</th>
+                                            <th>编号</th>
+                                            <th>名称</th>
+                                            <th>状态</th>
+                                            <th>创建</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -220,6 +220,9 @@
                                                 <td><@gtm8 time="${model.ctime}"/></td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
+                                                        <a href="/role/find?pojo[id]=${model.id!'0'}" title="授权">
+                                                            <i class="am-icon-key"></i> 授权
+                                                        </a>
                                                         <a href="/role/find?pojo[id]=${model.id!'0'}" title="修改">
                                                             <i class="am-icon-pencil"></i> 修改
                                                         </a>

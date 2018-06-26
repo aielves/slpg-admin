@@ -117,16 +117,16 @@
                                                 </label>
                                             </th>
                                             <th>ID</th>
-                                            <th>所属大模块</th>
-                                            <th>所属小模块</th>
-                                            <th>资源编号</th>
-                                            <th>资源名称</th>
-                                            <th>资源简介</th>
-                                            <th>资源路径</th>
-                                            <th>资源类型</th>
-                                            <th>资源排序</th>
-                                            <th>使用状态</th>
-                                            <th>创建时间</th>
+                                            <th>大模块</th>
+                                            <th>小模块</th>
+                                            <th>编号</th>
+                                            <th>名称</th>
+                                            <th>简介</th>
+                                            <th>路径</th>
+                                            <th>类型</th>
+                                            <th>排序</th>
+                                            <th>状态</th>
+                                            <th>创建</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>

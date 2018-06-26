@@ -13,4 +13,9 @@ public class ErrorController {
         return new FastView("/error/404").done();
     }
 
+    @RequestMapping("500")
+    public Object error500() {
+        return new FastView("/error/500").done();
+    }
+
 }

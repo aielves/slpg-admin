@@ -40,7 +40,6 @@ public class WebInitializeServiceImp implements WebInitializeService {
         anonRuleChains.add(new RuleChain("/error/**", "anon"));
         anonRuleChains.add(new RuleChain("/user/login*", "anon"));
         anonRuleChains.add(new RuleChain("/user/signup*", "anon"));
-        anonRuleChains.add(new RuleChain("/user/leftPage*", "anon"));
         anonRuleChains.add(new RuleChain("/ggk/*", "anon"));
         List<RuleChain> roleRuleChains = new ArrayList<>(); // 有权限校验
         roleRuleChains.add(new RuleChain("/user/index", "kickout,role[admin]"));

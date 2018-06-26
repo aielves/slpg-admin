@@ -56,7 +56,7 @@ public class UserServiceImp implements UserService {
             if (!StringUtils.isEmpty(email) && !RGXUtils.matches(email, RGX.EMAIL)) {
                 throw new BizErrorEx("邮箱不合法");
             }
-            if (!StringUtils.isEmpty(headimg) && !RGXUtils.matchImgUrl(headimg)) {
+            if (!StringUtils.isEmpty(headimg) && !RGXUtils.isImgUrl(headimg)) {
                 throw new BizErrorEx("图片不合法");
             }
             SlpgUser updater = slpgUserDAO.findOneByCnd(new SQLCnd().eq("id", SessionUtils.getUserId()).eq("state", 1));
