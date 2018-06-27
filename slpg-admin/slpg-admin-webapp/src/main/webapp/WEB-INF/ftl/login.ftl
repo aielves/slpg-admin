@@ -29,8 +29,9 @@
     </div>
     <div class="tpl-login">
         <div class="tpl-login-content">
-            <div class="tpl-login-logo">
-            </div>
+            <#--<div class="tpl-login-logo">
+            </div>-->
+
             <form id="form" class="am-form tpl-form-line-form">
                 <div class="am-form-group">
                     <input type="text" class="tpl-form-input" name="username" maxlength="18"

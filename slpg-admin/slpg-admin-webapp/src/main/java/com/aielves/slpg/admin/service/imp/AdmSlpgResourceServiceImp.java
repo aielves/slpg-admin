@@ -128,26 +128,17 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
         Integer orderno = model.getOrderno();
         Integer type = model.getType();
         Integer state = model.getState();
-        if (StringUtils.isEmpty(name)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源名称不能为空");
-        }
-        if (name.length() > 10) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源名称最多10个字符");
+        if (StringUtils.isEmpty(name) || name.length() > 10) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源名称不能为空,并小于10个字");
         }
         if (StringUtils.isEmpty(orderno)) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "优先级不能为空");
         }
-        if (StringUtils.isEmpty(state)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型不能为空");
+        if (state == null || (state < 1 || state > 2)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型错误");
         }
-        if (state < 1 || state > 2) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型异常");
-        }
-        if (StringUtils.isEmpty(type)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型不能为空");
-        }
-        if (type < 1 || type > 3) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型异常");
+        if (type == null || (type < 1 || type > 3)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源类型错误");
         }
         if (type == 3 && StringUtils.isEmpty(url)) {
             throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "节点资源访问地址不能为空");
@@ -155,7 +146,7 @@ public class AdmSlpgResourceServiceImp implements AdmSlpgResourceService {
             url = url.replaceAll(" ", "");
         }
         if (!StringUtils.isEmpty(resume) && resume.length() > 50) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源简介最多50个字符");
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "资源简介小于50个字");
         }
         try {
             if (id == null) {

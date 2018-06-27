@@ -67,16 +67,13 @@ public class AdmSlpgRoleServiceImp implements AdmSlpgRoleService {
         String name = model.getName();
         Integer state = model.getState();
         if (StringUtils.isEmpty(name)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "角色名称不能为空");
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "");
         }
-        if (name.length() > 8) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "角色名称最多8个字符");
+        if (StringUtils.isEmpty(name) || name.length() > 8) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "角色名称不能为空,并小于8个字");
         }
-        if (StringUtils.isEmpty(state)) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型不能为空");
-        }
-        if (state < 1 || state > 2) {
-            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型异常");
+        if (state == null || (state < 1 || state > 2)) {
+            throw new BizErrorEx(RetCode.BIZ_ERROR_STATUS, "状态类型错误");
         }
         try {
             if (id == null) {

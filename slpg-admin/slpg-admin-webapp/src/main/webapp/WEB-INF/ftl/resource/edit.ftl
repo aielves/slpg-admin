@@ -56,7 +56,7 @@
                         <div class="widget-body am-fr">
                             <form id="form" class="am-form tpl-form-border-form">
                             <@formToken/>
-                                <input type="hidden" id="id" name="pojo[id]" value="${model.id!''}"/>
+                                <input type="hidden" name="pojo[id]" value="${model.id!''}"/>
                             <#if model.id??>
                                 <input type="hidden" name="pojo[type]" value="${model.type!''}"/>
                                 <div class="am-form-group">
@@ -156,7 +156,7 @@
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源名称 <span
                                             class="tpl-form-line-small-title">Resource Name</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="name"
+                                        <input type="text" class="tpl-form-input am-margin-top-xs"
                                                name="pojo[name]"
                                                placeholder="请输入资源名称" value="${model.name!''}">
                                         <small style="color: #ff5588">请输入资源名称，10个字以内。</small>
@@ -166,27 +166,27 @@
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源简介 <span
                                             class="tpl-form-line-small-title">Resource Resume</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="url"
+                                        <input type="text" class="tpl-form-input am-margin-top-xs"
                                                name="pojo[resume]"
                                                placeholder="请输入资源简介" value="${model.resume!''}">
-                                        <small style="color: #ff5588">请输入资源简介,50个字以内(可不填写)。</small>
+                                        <small style="color: #ff5588">请输入资源简介，50个字以内(可不填写)。</small>
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">资源路径 <span
                                             class="tpl-form-line-small-title">Resource Url</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="url"
+                                        <input type="text" class="tpl-form-input am-margin-top-xs"
                                                name="pojo[url]"
                                                placeholder="请输入资源路径" value="${model.url!''}">
-                                        <small style="color: #ff5588">请输入资源访问地址,资源类型为大小栏目无需填写。</small>
+                                        <small style="color: #ff5588">请输入资源访问地址，资源类型为大小栏目无需填写。</small>
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">优先级别 <span
                                             class="tpl-form-line-small-title">Resource Order</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select id="orderno" name="pojo[orderno]" data-am-selected="{searchBox: 0}"
+                                        <select name="pojo[orderno]" data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
                                             <option value="">
                                             </option>
@@ -218,11 +218,11 @@
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">使用状态 <span
                                             class="tpl-form-line-small-title">Use State</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select id="state" name="pojo[state]" data-am-selected="{searchBox: 0}"
+                                        <select name="pojo[state]" data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
-                                            <option value="1" <#if model.state?? && model.state==1>selected</#if>>-正常
+                                            <option value="1" <#if model.state?? && model.state==1>selected</#if>>正常
                                             </option>
-                                            <option value="2" <#if model.state?? && model.state==2>selected</#if>>-禁用
+                                            <option value="2" <#if model.state?? && model.state==2>selected</#if>>禁用
                                             </option>
                                         </select>
                                     </div>

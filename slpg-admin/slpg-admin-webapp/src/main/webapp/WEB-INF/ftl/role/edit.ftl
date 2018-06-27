@@ -56,13 +56,12 @@
                         <div class="widget-body am-fr">
                             <form id="form" class="am-form tpl-form-border-form">
                             <@formToken/>
-                                <input type="hidden" id="id" name="pojo[id]" value="${model.id!''}"/>
-                                <input type="hidden" id="code" name="pojo[code]" value="${model.code!''}"/>
+                                <input type="hidden" name="pojo[id]" value="${model.id!''}"/>
                                 <div class="am-form-group">
                                     <label for="username" class="am-u-sm-12 am-form-label am-text-left">角色名称 <span
                                             class="tpl-form-line-small-title">Role Name</span></label>
                                     <div class="am-u-sm-12">
-                                        <input type="text" class="tpl-form-input am-margin-top-xs" id="name"
+                                        <input type="text" class="tpl-form-input am-margin-top-xs"
                                                name="pojo[name]"
                                                placeholder="请输入角色名称" value="${model.name!''}">
                                         <small style="color: #ff5588">请输入角色名称，8个字以内。</small>
@@ -72,11 +71,11 @@
                                     <label for="sex" class="am-u-sm-12 am-form-label am-text-left">使用状态 <span
                                             class="tpl-form-line-small-title">Use State</span></label>
                                     <div class="am-u-sm-12  am-margin-top-xs">
-                                        <select id="state" name="pojo[state]" data-am-selected="{searchBox: 0}"
+                                        <select name="pojo[state]" data-am-selected="{searchBox: 0}"
                                                 style="display: none;">
-                                            <option value="1" <#if model.state?? && model.state==1>selected</#if>>-正常
+                                            <option value="1" <#if model.state?? && model.state==1>selected</#if>>正常
                                             </option>
-                                            <option value="2" <#if model.state?? && model.state==2>selected</#if>>-禁用
+                                            <option value="2" <#if model.state?? && model.state==2>selected</#if>>禁用
                                             </option>
                                         </select>
                                     </div>

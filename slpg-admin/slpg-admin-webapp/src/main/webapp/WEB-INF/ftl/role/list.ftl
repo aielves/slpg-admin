@@ -212,9 +212,9 @@
                                                 <td>${model.name!''}</td>
                                                 <td>
                                                     <#if model.state == 1>
-                                                        -正常
+                                                        正常
                                                     <#else>
-                                                        -禁用
+                                                        禁用
                                                     </#if>
                                                 </td>
                                                 <td><@gtm8 time="${model.ctime}"/></td>
