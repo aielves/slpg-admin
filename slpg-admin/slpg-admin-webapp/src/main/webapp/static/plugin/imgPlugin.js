@@ -1,4 +1,3 @@
-var delImgSign;
 ;(function ($) {
     $.fn.extend({
         takungaeImgup: function (options) {
@@ -28,7 +27,7 @@ var delImgSign;
                         imgContainer.children(".z_file").before($section);
                         var $span = $("<span class='up-span'>");
                         $span.appendTo($section);
-                        var $img0 = $("<img class='close-upimg' style='cursor: pointer' onclick='deleteFile(1)'>");
+                        var $img0 = $("<img class='close-upimg' title='删除图片' style='cursor: pointer' onclick='deleteFile(1, imageNum, \"" + options.delPath + "\");'>");
                         $img0.attr("src", "http://static.cartoonai.com/plugin/imgUp/img/a7.png").appendTo($section);
                         var $img = $("<img class='up-img up-opcity'>");
                         $img.attr("src", imgArr[i]);
@@ -49,30 +48,8 @@ var delImgSign;
                 $(this).val(""); // clean input
             });
 
-            $(".wsdel-ok").click(function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                $(".works-mask").hide();
-                var delImg = $("input[sign='" + delImgSign + "']");
-                var url = delImg.attr("value");
-                var sign = delImg.attr("sign");
-                $.post(options.delPath, {url: url, sign: sign}, function (json) {
-
-                });
-                var delParent = delImg.parent();
-                var numUp = delParent.siblings(".up-section").length;
-                if (numUp < imageNum + 1) {
-                    delParent.parent().find(".z_file").show();
-                }
-                delParent.remove();
-            });
-
-            $(".wsdel-no").click(function () {
-                $(".works-mask").hide();
-                delImgSign = null;
-            });
-
         }
+
     });
 
 })(jQuery);
@@ -85,15 +62,15 @@ function validFile(files, options, defaults) {
             var type = newStr.split(".")[0].split("").reverse().join("");
             if (jQuery.inArray(type.toLowerCase(), defaults.fileType) > -1) { // 类型符合，可以上传
                 if (file.size > defaults.fileSize) {
-                    showTipMessage(2, '【' + file.name + '】超出【' + options.maxSizeKb + 'KB】限制');
+                    $.alertModal({title: "错误提示", content: '【' + file.name + '】超出【' + options.maxSizeKb + 'KB】限制'})
                 } else {
                     arrFiles.push(file);
                 }
             } else {
-                showTipMessage(2, '只允许上传【JPG|JPEG|PNG】图片格式');
+                $.alertModal({title: "错误提示", content: '只允许上传【JPG|JPEG|PNG】图片格式'})
             }
         } else {
-            showTipMessage(2, '只允许上传【JPG|JPEG|PNG】图片格式');
+            $.alertModal({title: "错误提示", content: '只允许上传【JPG|JPEG|PNG】图片格式'})
         }
     }
     return arrFiles;
@@ -119,11 +96,11 @@ function uploadFile(options, file, section, upImg, closeImg) {
             if (json.code == '000000') {
                 $(section).removeClass("loading");
                 $(upImg).removeClass("up-opcity");
-                $(closeImg).attr("onclick", "deleteFile('" + json.data.sign + "');");
+                $(closeImg).attr("onclick", "deleteFile('" + json.data.sign + "'," + options.imageNum + ", \'" + options.delPath + "\');");
                 var htmlStr = "<input type='text' style='display:none;' name='" + options.inputName + "' value='" + json.data.url + "' sign='" + json.data.sign + "'>";
                 $(section).append(htmlStr);
             } else {
-                showTipMessage(2, json.msg);
+                // showTipMessage(2, json.msg);
                 var parent = $(section).parent();
                 $(section).remove();
                 parent.find("section").show();
@@ -132,26 +109,25 @@ function uploadFile(options, file, section, upImg, closeImg) {
         error: function (e) {
             $(section).remove();
             $(section).parent().find("section").show();
-            showTipMessage(2, showMessage);
+            // showTipMessage(2, showMessage);
             console.log(e);
         }
     });
 }
 
-function deleteFile(sign) {
-    var showMessage = "您确定要删除图片吗？";
-    if (sign == 1) {
-        showMessage = "图片正在处理,请您耐心等候!";
-    }
-    delImgSign = sign;
-    showTipMessage(sign, showMessage);
-}
+function deleteFile(imgSign, imgNum, delPath) {
+    var delImg = $("input[sign='" + imgSign + "']");
+    var url = delImg.attr("value");
+    var sign = delImg.attr("sign");
+    console.log(url + "--" + sign)
+    $.post(delPath, {url: url, sign: sign}, function (json) {
 
-function showTipMessage(sign, showMessage) {
-    if (sign != 2) {
-        delImgSign = sign;
+    });
+    var delParent = delImg.parent();
+    console.log(delParent);
+    var numUp = delParent.siblings(".up-section").length;
+    if (numUp < imgNum + 1) {
+        delParent.parent().find(".z_file").show();
     }
-    var mask = $(".works-mask");
-    mask.find(".del-p").text(showMessage);
-    mask.show();
+    delParent.remove();
 }

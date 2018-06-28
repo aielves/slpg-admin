@@ -14,7 +14,7 @@
     <properties>
         <maven.local.server>https://www.cartoonai.com</maven.local.server>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <soho.version>3.0.6</soho.version>
+        <soho.version>3.0.7</soho.version>
     </properties>
 
     <!-- Spring Boot 启动父依赖 -->

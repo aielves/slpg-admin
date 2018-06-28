@@ -35,7 +35,7 @@ public class AdmSlpgUserServiceImp implements AdmSlpgUserService {
     @Override
     public Object list(SlpgUserVO vo) throws BizErrorEx {
         try {
-            Cnd sql = new SQLCnd().limit(vo.getPageNo(), vo.getPageSize());
+            Cnd sql = new SQLCnd().noteq("utype", 1).limit(vo.getPageNo(), vo.getPageSize());
             SlpgUser model = vo.getModel();
             if (model != null) {
                 if (model.getUtype() != null && model.getUtype() != -1) {

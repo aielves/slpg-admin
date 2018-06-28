@@ -51,12 +51,12 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
         }
         String username = token.getUsername();
         String password = new String(token.getPassword());
-        if (!RGXUtils.isAccount(username) || !RGXUtils.isPassword(password)) {
+        if (!RGXUtils.isMobile(username) || !RGXUtils.isPassword(password)) {
             throw new AuthenticationException("账号/密码错误");
         }
         try {
             String md5password = encryptService.md5(password);
-            SlpgUser user = slpgUserService.findOneByCnd(new SQLCnd().eq("username", username).eq("password", md5password));
+            SlpgUser user = slpgUserService.findOneByCnd(new SQLCnd().eq("mobile", username).eq("password", md5password));
             if (user == null) {
                 throw new AuthenticationException("账号/密码错误");
             }

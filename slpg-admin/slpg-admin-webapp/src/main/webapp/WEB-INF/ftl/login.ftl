@@ -35,7 +35,7 @@
             <form id="form" class="am-form tpl-form-line-form">
                 <div class="am-form-group">
                     <input type="text" class="tpl-form-input" name="username" maxlength="18"
-                           placeholder="请输入账号" value="zs123456">
+                           placeholder="请输入账号" value="13823912345">
                 </div>
                 <div class="am-form-group">
                     <input type="password" class="tpl-form-input" name="password" maxlength="18"
