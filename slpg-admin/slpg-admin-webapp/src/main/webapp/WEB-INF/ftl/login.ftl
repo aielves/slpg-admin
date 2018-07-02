@@ -29,16 +29,16 @@
     </div>
     <div class="tpl-login">
         <div class="tpl-login-content">
-            <#--<div class="tpl-login-logo">
-            </div>-->
+        <#--<div class="tpl-login-logo">
+        </div>-->
 
             <form id="form" class="am-form tpl-form-line-form">
                 <div class="am-form-group">
-                    <input type="text" class="tpl-form-input" name="username" maxlength="18"
+                    <input type="text" class="tpl-form-input" name="pojo[mobile]" maxlength="18"
                            placeholder="请输入账号" value="13823912345">
                 </div>
                 <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" name="password" maxlength="18"
+                    <input type="password" class="tpl-form-input" name="pojo[password]" maxlength="18"
                            placeholder="请输入密码" value="123456">
                 </div>
                 <div class="am-form-group tpl-login-remember-me">
